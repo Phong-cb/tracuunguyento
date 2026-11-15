@@ -2849,3 +2849,393 @@ code {
     color: #000 !important;
   }
 }
+
+/* =========================================================
+   ANIMATIONS: ELEMENT TILE ZOOM IN/OUT & VIEW SLIDE TRANSITIONS
+   ========================================================= */
+
+/* 1. Hiệu ứng phóng to / thu nhỏ ô nguyên tố khi bật và đóng chi tiết */
+.el-tile {
+  will-change: transform, box-shadow;
+  transform-origin: center center;
+}
+
+.el-tile:active {
+  transform: scale(0.92);
+}
+
+.el-tile.tile-zoom-open,
+.compact-el-card.tile-zoom-open,
+.gallery-card.tile-zoom-open,
+.qr-element-card.tile-zoom-open {
+  z-index: 45 !important;
+  animation: tileZoomOpenBurst 0.46s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.el-tile.active-modal-tile {
+  z-index: 35 !important;
+  transform: scale(1.1);
+  border-width: 2px;
+  border-color: #ffffff;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--el-color, #38bdf8) 45%, transparent),
+    0 0 28px var(--el-color, #38bdf8);
+}
+
+.el-tile.tile-zoom-return,
+.compact-el-card.tile-zoom-return,
+.gallery-card.tile-zoom-return,
+.qr-element-card.tile-zoom-return {
+  z-index: 45 !important;
+  animation: tileZoomCloseReturn 0.56s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes tileZoomOpenBurst {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 var(--el-color, #38bdf8);
+  }
+  45% {
+    transform: scale(1.32) translateY(-4px);
+    border-color: #ffffff;
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--el-color, #38bdf8) 38%, transparent),
+      0 14px 34px color-mix(in srgb, var(--el-color, #38bdf8) 75%, rgba(0, 0, 0, 0.9));
+  }
+  100% {
+    transform: scale(1.1);
+    border-color: #ffffff;
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--el-color, #38bdf8) 45%, transparent),
+      0 0 24px var(--el-color, #38bdf8);
+  }
+}
+
+@keyframes tileZoomCloseReturn {
+  0% {
+    transform: scale(1.28);
+    border-color: #ffffff;
+    box-shadow:
+      0 0 0 8px color-mix(in srgb, var(--el-color, #38bdf8) 50%, transparent),
+      0 0 36px var(--el-color, #38bdf8);
+  }
+  55% {
+    transform: scale(0.93);
+  }
+  80% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 2. Hiệu ứng phóng to Modal từ vị trí ô nguyên tố & thu nhỏ về lại ô khi đóng */
+.modal-backdrop.modal-opening {
+  animation: modalBackdropFadeIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.modal-backdrop.modal-closing {
+  animation: modalBackdropFadeOut 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes modalBackdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalBackdropFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.modal-dialog.modal-zoom-in {
+  animation: modalZoomFromTile 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.modal-dialog.modal-zoom-out {
+  animation: modalZoomToTile 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes modalZoomFromTile {
+  0% {
+    opacity: 0;
+    transform: translate3d(var(--zoom-origin-x, 0px), var(--zoom-origin-y, 28px), 0) scale(0.18);
+  }
+  72% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1.018);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes modalZoomToTile {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--zoom-origin-x, 0px), var(--zoom-origin-y, 28px), 0) scale(0.15);
+  }
+}
+
+/* Hiệu ứng trượt nội dung khi bấm Trước / Tiếp theo trong Modal */
+.modal-body.modal-slide-next {
+  animation: modalContentSlideNext 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.modal-body.modal-slide-prev {
+  animation: modalContentSlidePrev 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes modalContentSlideNext {
+  0% {
+    opacity: 0;
+    transform: translate3d(42px, 0, 0) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes modalContentSlidePrev {
+  0% {
+    opacity: 0;
+    transform: translate3d(-42px, 0, 0) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* 3. Hoạt ảnh trượt (Slide Transition) khi chuyển đổi giữa các mục (Tabs / Views) */
+.view-section {
+  will-change: transform, opacity;
+}
+
+.view-section.view-slide-right {
+  animation: viewSlideInRight 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.view-section.view-slide-left {
+  animation: viewSlideInLeft 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes viewSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(64px, 0, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes viewSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-64px, 0, 0) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Hoạt ảnh trượt cho các chế độ xem con (18 cột <-> Thẻ gọn, Mô hình 3D, Spotlight) */
+.subview-slide-right {
+  animation: subviewSlideInRight 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.subview-slide-left {
+  animation: subviewSlideInLeft 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes subviewSlideInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(38px, 0, 0) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes subviewSlideInLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(-38px, 0, 0) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Hiệu ứng thanh trượt (Glider Pill) cho thanh điều hướng dưới (Mobile/Tablet) & thanh tab trên (Desktop) */
+.desktop-view-tabs {
+  position: relative;
+}
+
+.desktop-nav-glider {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--desk-glider-w, 136px);
+  transform: translate3d(var(--desk-glider-x, 4px), 0, 0) scaleX(var(--desk-glider-sx, 1));
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.22), rgba(99, 102, 241, 0.16));
+  border: 1px solid rgba(56, 189, 248, 0.48);
+  border-radius: 9px;
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.desktop-view-tabs .view-btn {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.mobile-bottom-nav {
+  --mob-idx: 0;
+}
+
+.mob-nav-glider {
+  position: absolute;
+  top: 6px;
+  bottom: calc(6px + env(safe-area-inset-bottom));
+  left: 0;
+  width: var(--mob-glider-w, calc((100% - 20px - 16px) / 5));
+  transform: translate3d(
+      var(--mob-glider-x, calc(10px + var(--mob-idx, 0) * ((100% - 20px - 16px) / 5 + 4px))),
+      0,
+      0
+    )
+    scaleX(var(--mob-glider-sx, 1))
+    scaleY(var(--mob-glider-sy, 1));
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.25) 0%, rgba(56, 189, 248, 0.09) 100%);
+  border: 1.5px solid rgba(56, 189, 248, 0.6);
+  border-radius: 11px;
+  box-shadow:
+    0 0 22px rgba(56, 189, 248, 0.32),
+    inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform, width;
+  transition:
+    transform 0.44s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.44s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+/* Thanh vạch neon phát sáng trên đỉnh khung trượt của thanh dưới */
+.mob-nav-glider::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 24%;
+  right: 24%;
+  height: 3px;
+  border-radius: 999px;
+  background: #38bdf8;
+  box-shadow: 0 0 12px #38bdf8, 0 0 20px #38bdf8;
+  transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1), right 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mob-nav-glider.glider-moving {
+  --mob-glider-sx: 1.06;
+  --mob-glider-sy: 0.94;
+  box-shadow:
+    0 0 30px rgba(56, 189, 248, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+.mob-nav-glider.glider-moving::before {
+  left: 14%;
+  right: 14%;
+}
+
+.mobile-bottom-nav .mob-nav-item {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+  border-color: transparent !important;
+  transition:
+    color 0.28s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile-bottom-nav .mob-nav-item svg {
+  transition:
+    transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.3s ease;
+}
+
+.mobile-bottom-nav .mob-nav-item span {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    font-weight 0.2s ease,
+    color 0.25s ease;
+}
+
+.mobile-bottom-nav .mob-nav-item.active {
+  color: #38bdf8;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.mobile-bottom-nav .mob-nav-item.active svg {
+  transform: translateY(-2px) scale(1.14);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.7));
+}
+
+.mobile-bottom-nav .mob-nav-item.active span {
+  font-weight: 700;
+  color: #7dd3fc;
+}
+
+/* Hiệu ứng mượt trên nút chuyển mục (Tab Buttons) */
+.view-btn {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.view-btn:active {
+  transform: scale(0.94);
+}
+
+.view-btn.active {
+  transform: translateY(-1px);
+}

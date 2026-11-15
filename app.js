@@ -1446,12 +1446,89 @@
     });
   }
 
+  // Thứ tự các mục chính để xác định hướng trượt (Trái <-> Phải)
+  const VIEW_ORDER = ["table", "gallery", "compare", "qrcodes", "model3d"];
+  let modalCloseTimer = null;
+
+  function triggerViewSlide(sectionEl, direction = "right") {
+    if (!sectionEl) return;
+    sectionEl.classList.remove("view-slide-right", "view-slide-left");
+    void sectionEl.offsetWidth;
+    sectionEl.classList.add(direction === "left" ? "view-slide-left" : "view-slide-right");
+  }
+
+  function triggerSubviewSlide(targetEl, direction = "right") {
+    if (!targetEl) return;
+    targetEl.classList.remove("subview-slide-right", "subview-slide-left");
+    void targetEl.offsetWidth;
+    targetEl.classList.add(direction === "left" ? "subview-slide-left" : "subview-slide-right");
+  }
+
+  // Tìm ô nguyên tố tương ứng trên giao diện hiện tại để tính tâm phóng to / thu nhỏ
+  function findElementTriggerCard(number) {
+    if (state.activeView === "table") {
+      if (state.tableSubmode === "cards") {
+        return document.querySelector(`.compact-el-card[data-compact-num="${number}"]`);
+      }
+      return document.querySelector(`.el-tile[data-number="${number}"]`);
+    }
+    if (state.activeView === "gallery") {
+      return document.querySelector(`.gallery-card[data-number="${number}"]`);
+    }
+    if (state.activeView === "qrcodes") {
+      return document.querySelector(`.qr-element-card[data-number="${number}"]`);
+    }
+    return document.querySelector(`.el-tile[data-number="${number}"]`);
+  }
+
+  // Cập nhật tọa độ gốc (--zoom-origin-x, --zoom-origin-y) từ ô nguyên tố tới cửa sổ Modal
+  function syncModalZoomOrigin(number, triggerOpenPulse = false) {
+    const dialog = document.querySelector("#elementModal .modal-dialog");
+    document.querySelectorAll(".active-modal-tile, .tile-zoom-open").forEach((el) => {
+      el.classList.remove("active-modal-tile", "tile-zoom-open");
+    });
+
+    const card = findElementTriggerCard(number);
+    if (card) {
+      if (card.classList.contains("el-tile")) {
+        card.classList.add("active-modal-tile");
+      }
+      if (triggerOpenPulse) {
+        card.classList.remove("tile-zoom-return");
+        void card.offsetWidth;
+        card.classList.add("tile-zoom-open");
+      }
+      if (dialog) {
+        const rect = card.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          const tileCenterX = rect.left + rect.width / 2;
+          const tileCenterY = rect.top + rect.height / 2;
+          const viewportCenterX = window.innerWidth / 2;
+          const viewportCenterY = window.innerHeight / 2;
+          const dx = Math.round(tileCenterX - viewportCenterX);
+          const dy = Math.round(tileCenterY - viewportCenterY);
+          dialog.style.setProperty("--zoom-origin-x", `${dx}px`);
+          dialog.style.setProperty("--zoom-origin-y", `${dy}px`);
+          return;
+        }
+      }
+    }
+
+    if (dialog) {
+      dialog.style.setProperty("--zoom-origin-x", "0px");
+      dialog.style.setProperty("--zoom-origin-y", "28px");
+    }
+  }
+
   function selectModel3DElement(num) {
+    const prevNum = state.model3dNumber;
     if (num < 1) num = state.maxElements;
     if (num > state.maxElements) num = 1;
+    const slideDir = num >= prevNum ? "right" : "left";
     state.model3dNumber = num;
     updateModel3DStage();
     renderModel3DInfo();
+    triggerSubviewSlide(document.getElementById("m3dInfoPanel"), slideDir);
     document.querySelectorAll("#m3dPicker .m3d-pick").forEach((b) => {
       b.classList.toggle("active", Number(b.getAttribute("data-m3d-num")) === num);
     });
@@ -1490,12 +1567,18 @@
     });
 
     document.getElementById("btnM3dGlb")?.addEventListener("click", () => {
-      state.model3dMode = "glb";
-      updateModel3DStage();
+      if (state.model3dMode !== "glb") {
+        state.model3dMode = "glb";
+        updateModel3DStage();
+        triggerSubviewSlide(document.getElementById("m3dCanvasWrap"), "left");
+      }
     });
     document.getElementById("btnM3dAtom")?.addEventListener("click", () => {
-      state.model3dMode = "atom";
-      updateModel3DStage();
+      if (state.model3dMode !== "atom") {
+        state.model3dMode = "atom";
+        updateModel3DStage();
+        triggerSubviewSlide(document.getElementById("m3dCanvasWrap"), "right");
+      }
     });
 
     document.getElementById("m3dAutoRotateBtn")?.addEventListener("click", () => {
@@ -1528,16 +1611,33 @@
     });
   }
 
-  // Mở Cửa Sổ Modal Chi Tiết Nguyên Tố (Tích hợp Mã QR & Nút Tải Thẻ QR PNG)
-  function openElementModal(number) {
+  // Mở Cửa Sổ Modal Chi Tiết Nguyên Tố (Hỗ trợ hiệu ứng phóng to từ ô nguyên tố & trượt chuyển nguyên tố)
+  function openElementModal(number, slideDir = null) {
     const el = ALL_ELEMENTS.find((item) => item.number === number);
     if (!el) return;
 
-    state.modalNumber = number;
+    if (modalCloseTimer) {
+      clearTimeout(modalCloseTimer);
+      modalCloseTimer = null;
+    }
+
     const modal = document.getElementById("elementModal");
+    const dialog = modal?.querySelector(".modal-dialog");
     const body = document.getElementById("modalBodyContent");
     const catBadge = document.getElementById("modalCategoryBadge");
     const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const wasHidden = modal ? modal.hidden || modal.classList.contains("modal-closing") : true;
+
+    state.modalNumber = number;
+    state.spotlightNumber = number;
+
+    // Đồng bộ ô được chọn trên bảng tuần hoàn
+    document.querySelectorAll(".el-tile.selected-tile").forEach((n) => n.classList.remove("selected-tile"));
+    const activeTile = document.querySelector(`.el-tile[data-number="${number}"]`);
+    if (activeTile) activeTile.classList.add("selected-tile");
+
+    // Tính toán tâm phóng to từ ô nguyên tố vừa nhấn
+    syncModalZoomOrigin(number, true);
 
     catBadge.textContent = el.category_vi;
     catBadge.style.borderColor = color;
@@ -1550,8 +1650,8 @@
 
     document.getElementById("prevElementLabel").textContent = `#${prevEl.number} (${prevEl.name_en})`;
     document.getElementById("nextElementLabel").textContent = `#${nextEl.number} (${nextEl.name_en})`;
-    document.getElementById("prevElementBtn").onclick = () => openElementModal(prevNum);
-    document.getElementById("nextElementBtn").onclick = () => openElementModal(nextNum);
+    document.getElementById("prevElementBtn").onclick = () => openElementModal(prevNum, "prev");
+    document.getElementById("nextElementBtn").onclick = () => openElementModal(nextNum, "next");
 
     const imgSrc = getElementImageSrc(el);
     const fallbackUri = createElementVisualDataURI(el);
@@ -1638,12 +1738,62 @@
     });
 
     modal.hidden = false;
+    modal.classList.remove("modal-closing");
+
+    if (wasHidden) {
+      modal.classList.remove("modal-opening");
+      void modal.offsetWidth;
+      modal.classList.add("modal-opening");
+
+      if (dialog) {
+        dialog.classList.remove("modal-zoom-out", "modal-zoom-in");
+        void dialog.offsetWidth;
+        dialog.classList.add("modal-zoom-in");
+      }
+      body.classList.remove("modal-slide-next", "modal-slide-prev");
+    } else if (slideDir) {
+      body.classList.remove("modal-slide-next", "modal-slide-prev");
+      void body.offsetWidth;
+      body.classList.add(slideDir === "prev" ? "modal-slide-prev" : "modal-slide-next");
+    }
   }
 
   function closeElementModal() {
     const modal = document.getElementById("elementModal");
-    if (modal) modal.hidden = true;
+    if (!modal || modal.hidden) return;
+
+    const dialog = modal.querySelector(".modal-dialog");
+    const closingNum = state.modalNumber;
     state.modalNumber = null;
+
+    if (closingNum != null) {
+      syncModalZoomOrigin(closingNum, false);
+      const returnCard = findElementTriggerCard(closingNum);
+      if (returnCard) {
+        returnCard.classList.remove("tile-zoom-open", "active-modal-tile", "tile-zoom-return");
+        void returnCard.offsetWidth;
+        returnCard.classList.add("tile-zoom-return");
+      }
+    }
+
+    modal.classList.remove("modal-opening");
+    modal.classList.add("modal-closing");
+    if (dialog) {
+      dialog.classList.remove("modal-zoom-in");
+      void dialog.offsetWidth;
+      dialog.classList.add("modal-zoom-out");
+    }
+
+    if (modalCloseTimer) clearTimeout(modalCloseTimer);
+    modalCloseTimer = setTimeout(() => {
+      modal.hidden = true;
+      modal.classList.remove("modal-closing", "modal-opening");
+      if (dialog) dialog.classList.remove("modal-zoom-out", "modal-zoom-in");
+      document.querySelectorAll(".active-modal-tile, .tile-zoom-open").forEach((el) => {
+        el.classList.remove("active-modal-tile", "tile-zoom-open");
+      });
+      modalCloseTimer = null;
+    }, 280);
   }
 
   // Render đồng bộ tất cả thành phần theo state hiện tại
@@ -1722,27 +1872,129 @@
     const secGallery = document.getElementById("viewGallerySection");
     const secCompare = document.getElementById("viewCompareSection");
     const secQRCodes = document.getElementById("viewQRCodesSection");
+    const mobBottomNav = document.getElementById("mobileBottomNav") || document.querySelector(".mobile-bottom-nav");
+    const mobNavGlider = document.getElementById("mobNavGlider");
+    const desktopNavGlider = document.getElementById("desktopNavGlider");
+    const MOB_VIEW_ORDER = ["table", "gallery", "qrcodes", "model3d", "compare"];
+    let gliderTimer = null;
+
+    function syncNavGliders(animateStretch = false) {
+      // 1. Thanh điều hướng ở dưới (Mobile / Tablet Bottom Nav)
+      if (mobBottomNav) {
+        const mobIdx = Math.max(0, MOB_VIEW_ORDER.indexOf(state.activeView));
+        mobBottomNav.style.setProperty("--mob-idx", String(mobIdx));
+
+        const activeMobBtn = mobBottomNav.querySelector(`.mob-nav-item[data-view="${state.activeView}"]`);
+        if (activeMobBtn && mobNavGlider) {
+          if (activeMobBtn.offsetWidth > 0) {
+            mobNavGlider.style.setProperty("--mob-glider-x", `${activeMobBtn.offsetLeft}px`);
+            mobNavGlider.style.setProperty("--mob-glider-w", `${activeMobBtn.offsetWidth}px`);
+          } else {
+            mobNavGlider.style.removeProperty("--mob-glider-x");
+            mobNavGlider.style.removeProperty("--mob-glider-w");
+          }
+
+          if (animateStretch) {
+            mobNavGlider.classList.add("glider-moving");
+            if (gliderTimer) clearTimeout(gliderTimer);
+            gliderTimer = setTimeout(() => {
+              mobNavGlider.classList.remove("glider-moving");
+            }, 340);
+          }
+        }
+      }
+
+      // 2. Thanh điều hướng ở trên (Desktop / Laptop Tabs)
+      const activeDeskBtn = document.querySelector(`.desktop-view-tabs .view-btn[data-view="${state.activeView}"]`);
+      if (activeDeskBtn && desktopNavGlider) {
+        if (activeDeskBtn.offsetWidth > 0) {
+          desktopNavGlider.style.setProperty("--desk-glider-x", `${activeDeskBtn.offsetLeft}px`);
+          desktopNavGlider.style.setProperty("--desk-glider-w", `${activeDeskBtn.offsetWidth}px`);
+        }
+      }
+    }
+
+    function activateView(view, fromMobileBar = false) {
+      if (!view || view === state.activeView) {
+        syncNavGliders(false);
+        return;
+      }
+
+      const orderArr = fromMobileBar ? MOB_VIEW_ORDER : VIEW_ORDER;
+      const oldIdx = orderArr.indexOf(state.activeView);
+      const newIdx = orderArr.indexOf(view);
+      const slideDir = newIdx >= oldIdx ? "right" : "left";
+
+      state.activeView = view;
+      viewButtons.forEach((b) => {
+        const active = b.getAttribute("data-view") === view;
+        b.classList.toggle("active", active);
+        b.setAttribute("aria-selected", String(active));
+      });
+
+      syncNavGliders(true);
+
+      const secModel3D = document.getElementById("viewModel3DSection");
+      const sectionMap = {
+        table: secTable,
+        gallery: secGallery,
+        compare: secCompare,
+        qrcodes: secQRCodes,
+        model3d: secModel3D
+      };
+
+      secTable.hidden = view !== "table";
+      secGallery.hidden = view !== "gallery";
+      secCompare.hidden = view !== "compare";
+      if (secQRCodes) secQRCodes.hidden = view !== "qrcodes";
+      if (secModel3D) secModel3D.hidden = view !== "model3d";
+
+      renderAll();
+      triggerViewSlide(sectionMap[view], slideDir);
+    }
 
     viewButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const view = btn.getAttribute("data-view");
-        state.activeView = view;
-        viewButtons.forEach((b) => {
-          const active = b.getAttribute("data-view") === view;
-          b.classList.toggle("active", active);
-          b.setAttribute("aria-selected", String(active));
-        });
-
-        secTable.hidden = view !== "table";
-        secGallery.hidden = view !== "gallery";
-        secCompare.hidden = view !== "compare";
-        if (secQRCodes) secQRCodes.hidden = view !== "qrcodes";
-        const secModel3D = document.getElementById("viewModel3DSection");
-        if (secModel3D) secModel3D.hidden = view !== "model3d";
-
-        renderAll();
+        const isMob = btn.classList.contains("mob-nav-item");
+        activateView(view, isMob);
       });
     });
+
+    // Hỗ trợ vuốt / kéo ngón tay trượt trực tiếp trên thanh điều hướng dưới
+    if (mobBottomNav) {
+      let isDraggingNav = false;
+      const pickViewFromPoint = (clientX) => {
+        const items = Array.from(mobBottomNav.querySelectorAll(".mob-nav-item"));
+        for (const item of items) {
+          const r = item.getBoundingClientRect();
+          if (clientX >= r.left && clientX <= r.right) {
+            return item.getAttribute("data-view");
+          }
+        }
+        return null;
+      };
+
+      mobBottomNav.addEventListener("pointerdown", (e) => {
+        if (e.pointerType === "touch") {
+          isDraggingNav = true;
+        }
+      });
+
+      mobBottomNav.addEventListener("pointermove", (e) => {
+        if (!isDraggingNav) return;
+        const targetView = pickViewFromPoint(e.clientX);
+        if (targetView && targetView !== state.activeView) {
+          activateView(targetView, true);
+        }
+      });
+
+      window.addEventListener("pointerup", () => {
+        isDraggingNav = false;
+      });
+    }
+
+    requestAnimationFrame(() => syncNavGliders(false));
 
     // Chuyển kiểu hiển thị trong tab Bảng Tuần Hoàn: Sơ đồ 18 cột vs Lưới Thẻ Gọn (Mobile)
     const btnGrid18 = document.getElementById("btnSubmodeGrid18");
@@ -1755,15 +2007,21 @@
     updateSubmodeButtons();
 
     btnGrid18?.addEventListener("click", () => {
-      state.tableSubmode = "grid18";
-      updateSubmodeButtons();
-      renderPeriodicTable();
+      if (state.tableSubmode !== "grid18") {
+        state.tableSubmode = "grid18";
+        updateSubmodeButtons();
+        renderPeriodicTable();
+        triggerSubviewSlide(document.getElementById("periodicBoard"), "left");
+      }
     });
 
     btnCards?.addEventListener("click", () => {
-      state.tableSubmode = "cards";
-      updateSubmodeButtons();
-      renderPeriodicTable();
+      if (state.tableSubmode !== "cards") {
+        state.tableSubmode = "cards";
+        updateSubmodeButtons();
+        renderPeriodicTable();
+        triggerSubviewSlide(document.getElementById("compactCardsGrid"), "right");
+      }
     });
 
     // Nút đóng/mở ngăn bộ lọc & nhiệt độ trên điện thoại
@@ -1775,9 +2033,10 @@
       mobFilterBtn.setAttribute("aria-expanded", String(isOpen));
     });
 
-    // Tự động điều chỉnh vị trí Spotlight khi xoay màn hình hoặc thay đổi kích thước cửa sổ
+    // Tự động điều chỉnh vị trí Spotlight và khung trượt điều hướng khi xoay màn hình hoặc thay đổi kích thước cửa sổ
     window.addEventListener("resize", () => {
       syncSpotlightPlacement();
+      syncNavGliders(false);
     });
 
     // Tùy chọn loại nội dung mã hóa trong QR và nút In bảng QR
@@ -1909,10 +2168,10 @@
       } else if (state.modalNumber != null) {
         if (e.key === "ArrowRight") {
           const next = state.modalNumber < state.maxElements ? state.modalNumber + 1 : 1;
-          openElementModal(next);
+          openElementModal(next, "next");
         } else if (e.key === "ArrowLeft") {
           const prev = state.modalNumber > 1 ? state.modalNumber - 1 : state.maxElements;
-          openElementModal(prev);
+          openElementModal(prev, "prev");
         }
       }
     });

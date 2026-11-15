@@ -74,6 +74,7 @@
 
         <!-- Desktop/Laptop View Mode Switcher -->
         <div class="view-switch-group desktop-view-tabs" role="tablist" aria-label="Chế độ hiển thị">
+          <div class="desktop-nav-glider" id="desktopNavGlider" aria-hidden="true"></div>
           <button type="button" class="view-btn active" data-view="table" id="tabViewTable" role="tab" aria-selected="true">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
             <span>Bảng Tuần Hoàn</span>
@@ -443,7 +444,8 @@
   </main>
 
   <!-- Mobile / Tablet Sticky Bottom Navigation Bar (App-like UX for thumb reach) -->
-  <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
+  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Điều hướng di động">
+    <div class="mob-nav-glider" id="mobNavGlider" aria-hidden="true"></div>
     <button type="button" class="mob-nav-item view-btn active" data-view="table">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
       <span>Bảng T.Hoàn</span>
