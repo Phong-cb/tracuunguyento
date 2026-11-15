@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#070b17" />
+  <title>Nguyên Tố Vũ Trụ — Bảng Tuần Hoàn 118 Nguyên Tố Hóa Học &amp; Mã QR</title>
+  <meta name="description" content="Khám phá thông tin chi tiết, hình ảnh thực tế, mã QR và mô hình nguyên tử Bohr động của đầy đủ 118 nguyên tố hóa học chuẩn IUPAC trên mọi thiết bị Điện thoại, Laptop &amp; Desktop." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient Cosmic Background -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="bg-grid"></div>
+  </div>
+
+  <!-- Top Navigation & Hero Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="42" height="42" fill="none">
+            <circle cx="32" cy="32" r="6" fill="url(#coreGrad)" />
+            <ellipse cx="32" cy="32" rx="26" ry="10" stroke="url(#orbitGrad1)" stroke-width="2" transform="rotate(-30 32 32)" />
+            <ellipse cx="32" cy="32" rx="26" ry="10" stroke="url(#orbitGrad2)" stroke-width="2" transform="rotate(30 32 32)" />
+            <ellipse cx="32" cy="32" rx="26" ry="10" stroke="url(#orbitGrad1)" stroke-width="1.8" transform="rotate(90 32 32)" stroke-dasharray="4 3" />
+            <circle cx="14" cy="22" r="3" fill="#38bdf8" />
+            <circle cx="50" cy="42" r="3" fill="#a855f7" />
+            <circle cx="32" cy="6" r="2.5" fill="#34d399" />
+            <defs>
+              <linearGradient id="coreGrad" x1="26" y1="26" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8" />
+                <stop offset="1" stop-color="#818cf8" />
+              </linearGradient>
+              <linearGradient id="orbitGrad1" x1="6" y1="32" x2="58" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8" stop-opacity="0.9" />
+                <stop offset="1" stop-color="#818cf8" stop-opacity="0.2" />
+              </linearGradient>
+              <linearGradient id="orbitGrad2" x1="6" y1="32" x2="58" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#c084fc" stop-opacity="0.9" />
+                <stop offset="1" stop-color="#34d399" stop-opacity="0.3" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text-wrap">
+          <div class="badge-pill">
+            <span class="pulse-dot"></span>
+            <span id="headerBadgeText">Bách Khoa Đầy Đủ 118 Nguyên Tố IUPAC</span>
+          </div>
+          <h1 class="brand-title">Nguyên Tố <span class="text-gradient">Hóa Học</span> Trực Quan</h1>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Scope Switcher: 108 vs 118 -->
+        <div class="mode-switch-group" role="group" aria-label="Phạm vi nguyên tố">
+          <button type="button" class="mode-btn" data-limit="108" id="btnLimit108" title="Hiển thị 108 nguyên tố hóa học (Từ H đến Hassi - Hs)">
+            <span>108 Nguyên tố</span>
+            <small>H → Hs</small>
+          </button>
+          <button type="button" class="mode-btn active" data-limit="118" id="btnLimit118" title="Mở rộng toàn bộ 118 nguyên tố chuẩn IUPAC">
+            <span>118 Nguyên tố</span>
+            <small>Đầy đủ</small>
+          </button>
+        </div>
+
+        <!-- Desktop/Laptop View Mode Switcher -->
+        <div class="view-switch-group desktop-view-tabs" role="tablist" aria-label="Chế độ hiển thị">
+          <button type="button" class="view-btn active" data-view="table" id="tabViewTable" role="tab" aria-selected="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            <span>Bảng Tuần Hoàn</span>
+          </button>
+          <button type="button" class="view-btn" data-view="gallery" id="tabViewGallery" role="tab" aria-selected="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Bộ Sưu Tập Ảnh</span>
+          </button>
+          <button type="button" class="view-btn" data-view="compare" id="tabViewCompare" role="tab" aria-selected="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></svg>
+            <span>So Sánh (<span id="compareCountBadge">3</span>)</span>
+          </button>
+          <button type="button" class="view-btn" data-view="qrcodes" id="tabViewQRCodes" role="tab" aria-selected="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/><path d="M18 14h3v3h-3z"/><path d="M14 18h3v3h-3z"/><path d="M18 18h3v3h-3z"/></svg>
+            <span>Mã QR Nguyên Tố</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="main-container">
+    <!-- Control Bar: Search + Filter Drawer Toggle (on Mobile) + Phase Filters + Temperature Simulator + Quick Actions -->
+    <section class="control-bar glass-panel" aria-label="Bộ lọc và tìm kiếm">
+      <div class="search-and-mobile-toggle">
+        <div class="search-wrapper">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Tìm tên Việt, Anh, ký hiệu, số hiệu (VD: Vàng, Au, Fe, 79, 108)..."
+            autocomplete="off"
+          />
+          <kbd class="search-shortcut" id="clearSearchBtn" hidden title="Xóa tìm kiếm">ESC</kbd>
+        </div>
+
+        <!-- Mobile-only button to expand/collapse advanced filters (Temperature, Phase, Options) -->
+        <button type="button" class="mobile-filter-toggle-btn" id="mobileFilterToggleBtn" aria-expanded="false" aria-controls="expandableControls">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+          <span>Bộ lọc &amp; Nhiệt độ</span>
+        </button>
+      </div>
+
+      <div class="expandable-controls" id="expandableControls">
+        <!-- Phase Filter Pills -->
+        <div class="phase-filters" role="group" aria-label="Lọc theo trạng thái vật chất">
+          <button type="button" class="phase-pill active" data-phase="all">Tất cả (<span id="totalVisibleCount">108</span>)</button>
+          <button type="button" class="phase-pill" data-phase="Solid">
+            <span class="phase-dot solid"></span> Rắn
+          </button>
+          <button type="button" class="phase-pill" data-phase="Liquid">
+            <span class="phase-dot liquid"></span> Lỏng
+          </button>
+          <button type="button" class="phase-pill" data-phase="Gas">
+            <span class="phase-dot gas"></span> Khí
+          </button>
+        </div>
+
+        <!-- Interactive Temperature Simulator -->
+        <div class="temp-simulator">
+          <div class="temp-header">
+            <label for="tempSlider" class="temp-label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+              <span>Nhiệt độ:</span>
+            </label>
+            <div class="temp-readout">
+              <strong id="tempKelvinVal">298 K</strong>
+              <span id="tempCelsiusVal">(25 °C)</span>
+              <button type="button" id="resetTempBtn" class="btn-mini-reset" title="Đặt lại nhiệt độ phòng (25°C)">25°C</button>
+            </div>
+          </div>
+          <input type="range" id="tempSlider" min="0" max="6000" value="298" step="10" aria-label="Thanh trượt nhiệt độ Kelvin" />
+        </div>
+
+        <!-- Quick Action: Random Element & Picture Toggle on Grid -->
+        <div class="quick-tools">
+          <button type="button" id="toggleTilePhotoBtn" class="tool-btn active" title="Bật/Tắt ảnh nền nguyên tố ngay trên ô bảng tuần hoàn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+            <span>Ảnh trên ô</span>
+          </button>
+          <button type="button" id="randomElementBtn" class="tool-btn highlight-btn" title="Khám phá ngẫu nhiên một nguyên tố thú vị">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+            <span>Ngẫu nhiên</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Legend Bar (Horizontal swipeable on mobile/tablet, wrapped on desktop) -->
+    <section class="category-legend-wrapper" aria-label="Phân loại nhóm nguyên tố hóa học">
+      <div class="category-legend" id="categoryLegend">
+        <!-- Dynamically populated with interactive category pills -->
+      </div>
+    </section>
+
+    <!-- VIEW 1: Interactive Periodic Table View -->
+    <section id="viewTableSection" class="view-section active">
+      <!-- Sub-mode switcher for Periodic Table on Mobile/Tablet/Laptop: Full 18-col Map vs Compact Cards -->
+      <div class="table-display-bar">
+        <div class="table-hint">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span id="tableHintText">Chạm hoặc di chuột vào ô nguyên tố để xem nhanh thông tin, hình ảnh &amp; mã QR.</span>
+        </div>
+        <div class="table-submode-switch" role="group" aria-label="Kiểu hiển thị bảng tuần hoàn">
+          <button type="button" class="submode-btn active" data-submode="grid18" id="btnSubmodeGrid18">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+            <span>Sơ đồ 18 Cột</span>
+          </button>
+          <button type="button" class="submode-btn" data-submode="cards" id="btnSubmodeCards">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/></svg>
+            <span>Lưới Thẻ Gọn (Mobile)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sticky/Docked Spotlight Hero for Mobile/Tablet & embedded in 18-col table on Desktop/Laptop -->
+      <div class="mobile-spotlight-container" id="mobileSpotlightDock"></div>
+
+      <!-- 18-Column Periodic Table Scroll Container -->
+      <div class="periodic-scroll-container" id="periodicScrollContainer">
+        <div class="periodic-board" id="periodicBoard">
+          <!-- Interactive Spotlight Hero Card sitting inside the open top-middle space of the Periodic Table (cols 3-12, rows 1-3) on Desktop/Laptop -->
+          <div class="table-spotlight glass-panel" id="tableSpotlight">
+            <!-- Dynamically updated on hover / selection -->
+          </div>
+          <!-- 18-column Periodic Grid Tiles rendered by app.js -->
+        </div>
+      </div>
+
+      <!-- Compact Responsive Cards Grid (Alternative sub-mode for quick mobile/tablet browsing without horizontal scroll) -->
+      <div class="compact-elements-grid" id="compactElementsGrid" hidden>
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- VIEW 2: Rich Photo Gallery View (108 / 118 Visual Cards with Photos & QR) -->
+    <section id="viewGallerySection" class="view-section" hidden>
+      <div class="gallery-toolbar glass-panel">
+        <div class="gallery-info">
+          <h2>Thư Viện Hình Ảnh Thực Tế Các Nguyên Tố Hóa Học</h2>
+          <p>Nhấn vào bất kỳ thẻ nguyên tố nào để xem mô hình nguyên tử Bohr động, mã QR và ứng dụng thực tiễn.</p>
+        </div>
+        <div class="sort-control">
+          <label for="gallerySortSelect">Sắp xếp:</label>
+          <select id="gallerySortSelect">
+            <option value="number-asc">Số hiệu nguyên tử (1 → 108)</option>
+            <option value="number-desc">Số hiệu nguyên tử (Giảm dần)</option>
+            <option value="mass-asc">Nguyên tử khối (Nhẹ → Nặng)</option>
+            <option value="density-desc">Khối lượng riêng (Đặc nhất)</option>
+            <option value="melt-desc">Nhiệt độ nóng chảy (Cao nhất)</option>
+            <option value="name-vi">Tên Tiếng Việt (A → Z)</option>
+          </select>
+        </div>
+      </div>
+      <div class="photo-gallery-grid" id="photoGalleryGrid">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- VIEW 3: Element Side-by-Side Comparison View -->
+    <section id="viewCompareSection" class="view-section" hidden>
+      <div class="compare-header glass-panel">
+        <div>
+          <h2>So Sánh Trực Quan Các Nguyên Tố Hóa Học</h2>
+          <p>Đặt hai hoặc ba nguyên tố cạnh nhau để đối chiếu hình ảnh mẫu vật, mã QR, độ âm điện, nhiệt độ nóng chảy và cấu hình electron.</p>
+        </div>
+        <div class="compare-selectors">
+          <div class="compare-select-box">
+            <label for="compareSelect1">Nguyên tố thứ 1:</label>
+            <select id="compareSelect1"></select>
+          </div>
+          <div class="compare-vs-badge">VS</div>
+          <div class="compare-select-box">
+            <label for="compareSelect2">Nguyên tố thứ 2:</label>
+            <select id="compareSelect2"></select>
+          </div>
+          <div class="compare-vs-badge">+</div>
+          <div class="compare-select-box">
+            <label for="compareSelect3">Nguyên tố thứ 3:</label>
+            <select id="compareSelect3"></select>
+          </div>
+        </div>
+      </div>
+      <div class="compare-cards-grid" id="compareCardsGrid">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- VIEW 4: QR Code Sheet View (Mã QR cho từng nguyên tố hóa học) -->
+    <section id="viewQRCodesSection" class="view-section" hidden>
+      <div class="qr-sheet-toolbar glass-panel">
+        <div class="qr-sheet-info">
+          <h2>Bảng Mã QR Của Các Nguyên Tố Hóa Học</h2>
+          <p>Mỗi nguyên tố có một mã QR riêng biệt. Quét bằng điện thoại để mở nhanh hồ sơ nguyên tố, tra cứu thông số hoặc tải thẻ QR về máy / in học liệu.</p>
+        </div>
+        <div class="qr-sheet-actions">
+          <div class="qr-mode-select-wrap">
+            <label for="qrPayloadMode">Nội dung mã QR:</label>
+            <select id="qrPayloadMode">
+              <option value="url">Liên kết mở trực tiếp nguyên tố (?element=Z)</option>
+              <option value="info">Thông tin tóm tắt Tiếng Việt (Quét đọc offline)</option>
+              <option value="wiki">Trang Wikipedia của nguyên tố</option>
+            </select>
+          </div>
+          <button type="button" class="tool-btn highlight-btn" id="printQRSheetBtn" title="In toàn bộ bảng mã QR phục vụ học tập &amp; giảng dạy">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <span>In Bảng Mã QR</span>
+          </button>
+        </div>
+      </div>
+      <div class="qr-cards-grid" id="qrCardsGrid">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Mobile / Tablet Sticky Bottom Navigation Bar (App-like UX for thumb reach) -->
+  <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
+    <button type="button" class="mob-nav-item view-btn active" data-view="table">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Bảng T.Hoàn</span>
+    </button>
+    <button type="button" class="mob-nav-item view-btn" data-view="gallery">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      <span>Thư Viện Ảnh</span>
+    </button>
+    <button type="button" class="mob-nav-item view-btn" data-view="qrcodes">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/><path d="M18 14h3v3h-3z"/><path d="M14 18h3v3h-3z"/><path d="M18 18h3v3h-3z"/></svg>
+      <span>Mã QR</span>
+    </button>
+    <button type="button" class="mob-nav-item view-btn" data-view="compare">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></svg>
+      <span>So Sánh</span>
+    </button>
+  </nav>
+
+  <!-- Detailed Element Modal (Bottom-Sheet on Mobile, Centered Glass Dialog on Laptop/Desktop) -->
+  <div class="modal-backdrop" id="elementModal" role="dialog" aria-modal="true" aria-labelledby="modalElementTitle" hidden>
+    <div class="modal-dialog glass-panel">
+      <div class="modal-drag-handle" aria-hidden="true"></div>
+      <button type="button" class="modal-close-btn" id="closeModalBtn" aria-label="Đóng cửa sổ chi tiết">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+
+      <!-- Prev / Next Element Navigation in Modal -->
+      <div class="modal-nav-bar">
+        <button type="button" class="modal-nav-btn" id="prevElementBtn">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+          <span id="prevElementLabel">#1 Hiđrô</span>
+        </button>
+        <div class="modal-nav-center" id="modalCategoryBadge">Kim loại chuyển tiếp</div>
+        <button type="button" class="modal-nav-btn" id="nextElementBtn">
+          <span id="nextElementLabel">#3 Liti</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="modal-body" id="modalBodyContent">
+        <!-- Dynamically populated by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <p>
+        <strong>Nguyên Tố Vũ Trụ</strong> — Cổng tra cứu trực quan <strong>108 nguyên tố hóa học</strong> (mở rộng đầy đủ 118 nguyên tố IUPAC) tích hợp hình ảnh mẫu vật thực tế, mô hình nguyên tử tương tác &amp; mã QR cho mọi thiết bị.
+      </p>
+      <p class="footer-note">
+        Mẹo: Sử dụng phím mũi tên <code>←</code> <code>→</code> trên máy tính hoặc chạm vào các nút chuyển trên điện thoại để duyệt nhanh qua các nguyên tố.
+      </p>
+    </div>
+  </footer>
+
+  <script src="qrcode.min.js"></script>
+  <script src="elements_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
