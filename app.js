@@ -62,6 +62,40 @@
   // Bộ nhớ đệm mã QR SVG để tăng tốc độ hiển thị
   const qrCache = new Map();
 
+  // Bảng phân loại nhóm theo danh pháp hóa học chuẩn (Nhóm IA -> VIIIA, IB -> VIIIB)
+  const ROMAN_GROUPS = {
+    1: "Nhóm IA",
+    2: "Nhóm IIA",
+    3: "Nhóm IIIB",
+    4: "Nhóm IVB",
+    5: "Nhóm VB",
+    6: "Nhóm VIB",
+    7: "Nhóm VIIB",
+    8: "Nhóm VIIIB",
+    9: "Nhóm VIIIB",
+    10: "Nhóm VIIIB",
+    11: "Nhóm IB",
+    12: "Nhóm IIB",
+    13: "Nhóm IIIA",
+    14: "Nhóm IVA",
+    15: "Nhóm VA",
+    16: "Nhóm VIA",
+    17: "Nhóm VIIA",
+    18: "Nhóm VIIIA"
+  };
+
+  // Lấy tên nhóm chuẩn hóa học cho nguyên tố (không dùng số thứ tự cột 1-18)
+  function getElementGroupLabel(el) {
+    if (!el) return "";
+    if (el.category_id === "lanthanide" || (el.number >= 57 && el.number <= 71)) {
+      return "Họ Lantan";
+    }
+    if (el.category_id === "actinide" || (el.number >= 89 && el.number <= 103)) {
+      return "Họ Actini";
+    }
+    return ROMAN_GROUPS[el.group] || (el.group ? `Nhóm ${el.group}` : "Khối f");
+  }
+
   // Tạo chuỗi nội dung mã hóa vào QR của từng nguyên tố
   function buildQRPayload(el, mode = state.qrPayloadMode) {
     if (mode === "wiki") {
@@ -70,6 +104,7 @@
     if (mode === "info") {
       return [
         `#${el.number} (${el.name_en}) [${el.symbol}]`,
+        `Vị trí: Chu kỳ ${el.period} • ${getElementGroupLabel(el)} • Khối ${el.block}`,
         `Nhóm: ${el.category_vi}`,
         `Nguyên tử khối: ${el.atomic_mass} u`,
         `Cấu hình e: ${el.electron_configuration_semantic || el.electron_configuration}`,
@@ -653,7 +688,7 @@
       tile.style.setProperty("--el-color", color);
       tile.setAttribute("data-number", String(el.number));
       tile.setAttribute("tabindex", "0");
-      tile.setAttribute("aria-label", `${el.number}. ${el.name_en} (${el.symbol}) - Chu kỳ ${el.period}, Nhóm ${el.group}`);
+      tile.setAttribute("aria-label", `${el.number}. ${el.name_en} (${el.symbol}) - Chu kỳ ${el.period}, ${getElementGroupLabel(el)}, Khối ${el.block}`);
 
       tile.innerHTML = `
         <img class="el-tile-bg-img" src="${imgSrc}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${fallbackUri}';" />
@@ -873,7 +908,7 @@
             <div class="compare-prop-list">
               <div class="compare-prop-row"><span>Nguyên tử khối</span><strong>${el.atomic_mass} u</strong></div>
               <div class="compare-prop-row"><span>Cấu hình electron</span><strong>${el.electron_configuration_semantic || el.electron_configuration}</strong></div>
-              <div class="compare-prop-row"><span>Chu kỳ / Nhóm</span><strong>Chu kỳ ${el.period} / Nhóm ${el.group || "Họ f"}</strong></div>
+              <div class="compare-prop-row"><span>Chu kỳ / Nhóm / Khối</span><strong>Chu kỳ ${el.period} • ${getElementGroupLabel(el)} • Khối ${el.block}</strong></div>
               <div class="compare-prop-row"><span>Trạng thái tiêu chuẩn</span><strong>${el.phase_vi}</strong></div>
               <div class="compare-prop-row"><span>Khối lượng riêng</span><strong>${el.density ? el.density + " g/cm³" : "Chưa xác định"}</strong></div>
               <div class="compare-prop-row"><span>Điểm nóng chảy</span><strong>${el.melt ? el.melt + " K (" + (el.melt - 273.15).toFixed(1) + " °C)" : "—"}</strong></div>
@@ -1604,7 +1639,7 @@
       <div class="modal-specs-grid">
         <div class="spec-item"><small>Nguyên tử khối tiêu chuẩn</small><strong>${el.atomic_mass} u</strong></div>
         <div class="spec-item"><small>Cấu hình electron</small><strong>${el.electron_configuration_semantic || el.electron_configuration}</strong></div>
-        <div class="spec-item"><small>Chu kỳ / Nhóm / Khối</small><strong>Chu kỳ ${el.period} • Nhóm ${el.group || "f"} • Khối ${el.block}-block</strong></div>
+        <div class="spec-item"><small>Chu kỳ / Nhóm / Khối</small><strong>Chu kỳ ${el.period} • ${getElementGroupLabel(el)} • Khối ${el.block}</strong></div>
         <div class="spec-item"><small>Trạng thái vật chất (25°C)</small><strong>${el.phase_vi} (${el.phase_en})</strong></div>
         <div class="spec-item"><small>Khối lượng riêng</small><strong>${el.density != null ? el.density + " g/cm³" : "Dự đoán / Rất ngắn"}</strong></div>
         <div class="spec-item"><small>Nhiệt độ nóng chảy</small><strong>${meltC}</strong></div>
