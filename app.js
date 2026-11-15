@@ -62,27 +62,12 @@
   // Bộ nhớ đệm mã QR SVG để tăng tốc độ hiển thị
   const qrCache = new Map();
 
-  // Bảng phân loại nhóm theo danh pháp hóa học chuẩn (Nhóm IA -> VIIIA, IB -> VIIIB)
-  const ROMAN_GROUPS = {
-    1: "Nhóm IA",
-    2: "Nhóm IIA",
-    3: "Nhóm IIIB",
-    4: "Nhóm IVB",
-    5: "Nhóm VB",
-    6: "Nhóm VIB",
-    7: "Nhóm VIIB",
-    8: "Nhóm VIIIB",
-    9: "Nhóm VIIIB",
-    10: "Nhóm VIIIB",
-    11: "Nhóm IB",
-    12: "Nhóm IIB",
-    13: "Nhóm IIIA",
-    14: "Nhóm IVA",
-    15: "Nhóm VA",
-    16: "Nhóm VIA",
-    17: "Nhóm VIIA",
-    18: "Nhóm VIIIA"
-  };
+  // Danh sách ký hiệu nhóm La Mã theo 18 cột bảng tuần hoàn
+  const ROMAN_GROUPS = [
+    "IA", "IIA", "IIIB", "IVB", "VB", "VIB", "VIIB",
+    "VIIIB", "VIIIB", "VIIIB", "IB", "IIB",
+    "IIIA", "IVA", "VA", "VIA", "VIIA", "VIIIA"
+  ];
 
   // Lấy tên nhóm chuẩn hóa học cho nguyên tố (không dùng số thứ tự cột 1-18)
   function getElementGroupLabel(el) {
@@ -93,7 +78,8 @@
     if (el.category_id === "actinide" || (el.number >= 89 && el.number <= 103)) {
       return "Họ Actini";
     }
-    return ROMAN_GROUPS[el.group] || (el.group ? `Nhóm ${el.group}` : "Khối f");
+    const roman = ROMAN_GROUPS[el.group - 1];
+    return roman ? `Nhóm ${roman}` : (el.group ? `Nhóm ${el.group}` : "Khối f");
   }
 
   // Tạo chuỗi nội dung mã hóa vào QR của từng nguyên tố
@@ -511,12 +497,6 @@
     document.getElementById("spotlightQRClick")?.addEventListener("click", openDetail);
     document.getElementById("spotlightOpenModalBtn")?.addEventListener("click", openDetail);
   }
-
-  const ROMAN_GROUPS = [
-    "IA", "IIA", "IIIB", "IVB", "VB", "VIB", "VIIB",
-    "VIIIB", "VIIIB", "VIIIB", "IB", "IIB",
-    "IIIA", "IVA", "VA", "VIA", "VIIA", "VIIIA"
-  ];
 
   function syncPeriodGroupDropdowns() {
     const periodSel = document.getElementById("periodFilterSelect");
