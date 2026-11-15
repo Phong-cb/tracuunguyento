@@ -76,10 +76,16 @@
         `Trang thai (25C): ${el.phase_vi}`
       ].join("\n");
     }
-    const baseUrl =
+    let baseUrl =
       window.location.origin && window.location.origin !== "null"
         ? `${window.location.origin}${window.location.pathname}`
-        : "http://localhost:8108/";
+        : "http://192.168.1.16:8108/";
+
+    // Khi duyệt web trên máy tính bằng localhost hoặc 127.0.0.1, tự động gán IP mạng LAN (192.168.1.16)
+    // để điện thoại khác (iPhone/Safari, Android) quét mã QR trên màn hình PC mở được ngay lập tức
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      baseUrl = `${window.location.protocol}//192.168.1.16:${window.location.port || "8108"}${window.location.pathname}`;
+    }
     return `${baseUrl}?element=${el.number}&symbol=${el.symbol}`;
   }
 
