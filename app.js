@@ -43,6 +43,8 @@
     tableSubmode: isSmallMobileInit ? "cards" : "grid18", // 'grid18' | 'cards'
     searchQuery: "",
     selectedCategory: "all",
+    selectedPeriod: "all", // 'all' | '1'..'7' | 'lanthanide' | 'actinide'
+    selectedGroup: "all", // 'all' | '1'..'18' | 'f-block'
     selectedPhase: "all",
     temperatureK: 298, // 25°C
     useCustomTemp: false,
@@ -51,7 +53,10 @@
     modalNumber: null,
     gallerySort: "number-asc",
     compareIds: [1, 79, 108], // Hiđrô, Vàng, Hassi (108)
-    qrPayloadMode: "url" // 'url' | 'info' | 'wiki'
+    qrPayloadMode: "url", // 'url' | 'info' | 'wiki'
+    model3dNumber: 79, // Nguyên tố đang xem ở chế độ 3D
+    model3dMode: "glb", // 'glb' (model-viewer + AR) | 'atom' (nguyên tử 3D tương tác)
+    m3dAutoRotate: true
   };
 
   // Bộ nhớ đệm mã QR SVG để tăng tốc độ hiển thị
@@ -274,6 +279,26 @@
       return false;
     }
 
+    // Lọc theo Chu kỳ
+    if (state.selectedPeriod !== "all") {
+      if (state.selectedPeriod === "lanthanide") {
+        if (el.category_id !== "lanthanide" && !(el.number >= 57 && el.number <= 71)) return false;
+      } else if (state.selectedPeriod === "actinide") {
+        if (el.category_id !== "actinide" && !(el.number >= 89 && el.number <= 103)) return false;
+      } else {
+        if (String(el.period) !== String(state.selectedPeriod)) return false;
+      }
+    }
+
+    // Lọc theo Nhóm
+    if (state.selectedGroup !== "all") {
+      if (state.selectedGroup === "f-block") {
+        if (el.block !== "f" && el.category_id !== "lanthanide" && el.category_id !== "actinide") return false;
+      } else {
+        if (String(el.group) !== String(state.selectedGroup)) return false;
+      }
+    }
+
     const currentPhase = getEffectivePhase(el);
     if (state.selectedPhase !== "all" && currentPhase !== state.selectedPhase) {
       return false;
@@ -447,9 +472,29 @@
     document.getElementById("spotlightOpenModalBtn")?.addEventListener("click", openDetail);
   }
 
+  const ROMAN_GROUPS = [
+    "IA", "IIA", "IIIB", "IVB", "VB", "VIB", "VIIB",
+    "VIIIB", "VIIIB", "VIIIB", "IB", "IIB",
+    "IIIA", "IVA", "VA", "VIA", "VIIA", "VIIIA"
+  ];
+
+  function syncPeriodGroupDropdowns() {
+    const periodSel = document.getElementById("periodFilterSelect");
+    const groupSel = document.getElementById("groupFilterSelect");
+    const resetBtn = document.getElementById("resetPeriodGroupBtn");
+
+    if (periodSel) periodSel.value = state.selectedPeriod;
+    if (groupSel) groupSel.value = state.selectedGroup;
+
+    if (resetBtn) {
+      resetBtn.hidden = state.selectedPeriod === "all" && state.selectedGroup === "all";
+    }
+  }
+
   // Render Bảng Tuần Hoàn (18 Cột chuẩn & Lưới Thẻ Gọn cho Mobile)
   function renderPeriodicTable() {
     syncSpotlightPlacement();
+    syncPeriodGroupDropdowns();
 
     const scrollWrap = document.getElementById("periodicScrollContainer");
     const board = document.getElementById("periodicBoard");
@@ -465,19 +510,123 @@
       if (child !== spotlightEl) child.remove();
     });
 
-    // Thêm 2 ô chỉ dẫn Họ Lantan (57-71) và Họ Actini (89-103) tại cột 3, hàng 6 và 7
+    // 1. Góc trên bên trái (Hàng 1, Cột 1): Nhãn Chu kỳ \ Nhóm
+    const cornerCell = document.createElement("div");
+    cornerCell.className = "grid-corner-cell";
+    cornerCell.style.gridColumn = "1";
+    cornerCell.style.gridRow = "1";
+    cornerCell.title = "Hàng ngang: Chu kỳ (1–7) | Cột dọc: Nhóm (1–18)";
+    cornerCell.innerHTML = `<span>CK\\Nhóm</span>`;
+    board.appendChild(cornerCell);
+
+    // 2. Hàng tiêu đề Nhóm (Hàng 1, Cột 2..19 cho Nhóm 1..18)
+    for (let g = 1; g <= 18; g++) {
+      const gBtn = document.createElement("button");
+      gBtn.type = "button";
+      const isAct = state.selectedGroup === String(g);
+      gBtn.className = `group-header-cell ${isAct ? "active" : ""}`;
+      gBtn.style.gridColumn = String(g + 1);
+      gBtn.style.gridRow = "1";
+      gBtn.setAttribute("data-group", String(g));
+      gBtn.title = `Nhấn để lọc các nguyên tố thuộc Nhóm ${g} (${ROMAN_GROUPS[g - 1]})`;
+      gBtn.innerHTML = `<strong>${g}</strong><small>${ROMAN_GROUPS[g - 1]}</small>`;
+
+      gBtn.addEventListener("click", () => {
+        state.selectedGroup = state.selectedGroup === String(g) ? "all" : String(g);
+        syncPeriodGroupDropdowns();
+        renderAll();
+      });
+      board.appendChild(gBtn);
+    }
+
+    // 3. Cột tiêu đề Chu kỳ (Cột 1, Hàng 2..8 cho Chu kỳ 1..7)
+    for (let p = 1; p <= 7; p++) {
+      const pBtn = document.createElement("button");
+      pBtn.type = "button";
+      const isAct = state.selectedPeriod === String(p);
+      pBtn.className = `period-header-cell ${isAct ? "active" : ""}`;
+      pBtn.style.gridColumn = "1";
+      pBtn.style.gridRow = String(p + 1);
+      pBtn.setAttribute("data-period", String(p));
+      pBtn.title = `Nhấn để lọc các nguyên tố thuộc Chu kỳ ${p}`;
+      pBtn.innerHTML = `<strong>${p}</strong><small>CK</small>`;
+
+      pBtn.addEventListener("click", () => {
+        state.selectedPeriod = state.selectedPeriod === String(p) ? "all" : String(p);
+        syncPeriodGroupDropdowns();
+        renderAll();
+      });
+      board.appendChild(pBtn);
+    }
+
+    // 4. Thanh phân cách dãy họ f (Hàng 9)
+    const divider = document.createElement("div");
+    divider.className = "grid-series-divider";
+    divider.style.gridColumn = "1 / -1";
+    divider.style.gridRow = "9";
+    divider.innerHTML = `<span>Họ nguyên tố khối f (Lantan &amp; Actini)</span>`;
+    board.appendChild(divider);
+
+    // 5. Cột tiêu đề Chu kỳ 6* và 7* (Họ Lantan & Họ Actini)
+    const lanHdr = document.createElement("button");
+    lanHdr.type = "button";
+    const isLanAct = state.selectedPeriod === "lanthanide";
+    lanHdr.className = `period-header-cell series-hdr-lan ${isLanAct ? "active" : ""}`;
+    lanHdr.style.gridColumn = "1";
+    lanHdr.style.gridRow = "10";
+    lanHdr.setAttribute("data-period", "lanthanide");
+    lanHdr.title = "Nhấn để lọc Họ Lantan (Nguyên tố 57–71)";
+    lanHdr.innerHTML = `<strong>6*</strong><small>La</small>`;
+    lanHdr.addEventListener("click", () => {
+      state.selectedPeriod = state.selectedPeriod === "lanthanide" ? "all" : "lanthanide";
+      syncPeriodGroupDropdowns();
+      renderAll();
+    });
+    board.appendChild(lanHdr);
+
+    const actHdr = document.createElement("button");
+    actHdr.type = "button";
+    const isActAct = state.selectedPeriod === "actinide";
+    actHdr.className = `period-header-cell series-hdr-act ${isActAct ? "active" : ""}`;
+    actHdr.style.gridColumn = "1";
+    actHdr.style.gridRow = "11";
+    actHdr.setAttribute("data-period", "actinide");
+    actHdr.title = "Nhấn để lọc Họ Actini (Nguyên tố 89–103)";
+    actHdr.innerHTML = `<strong>7*</strong><small>Ac</small>`;
+    actHdr.addEventListener("click", () => {
+      state.selectedPeriod = state.selectedPeriod === "actinide" ? "all" : "actinide";
+      syncPeriodGroupDropdowns();
+      renderAll();
+    });
+    board.appendChild(actHdr);
+
+    // 6. Thêm 2 ô chỉ dẫn Họ Lantan (57-71) và Họ Actini (89-103) tại Cột 4, Hàng 7 và 8
     const lanMarker = document.createElement("div");
     lanMarker.className = "series-marker";
-    lanMarker.style.gridColumn = "3";
-    lanMarker.style.gridRow = "6";
+    lanMarker.style.gridColumn = "4";
+    lanMarker.style.gridRow = "7";
+    lanMarker.style.cursor = "pointer";
+    lanMarker.title = "Nhấn để xem Họ Lantan (57–71)";
     lanMarker.innerHTML = `<strong>57–71</strong><span>Lantan</span>`;
+    lanMarker.addEventListener("click", () => {
+      state.selectedPeriod = state.selectedPeriod === "lanthanide" ? "all" : "lanthanide";
+      syncPeriodGroupDropdowns();
+      renderAll();
+    });
     board.appendChild(lanMarker);
 
     const actMarker = document.createElement("div");
     actMarker.className = "series-marker";
-    actMarker.style.gridColumn = "3";
-    actMarker.style.gridRow = "7";
+    actMarker.style.gridColumn = "4";
+    actMarker.style.gridRow = "8";
+    actMarker.style.cursor = "pointer";
+    actMarker.title = "Nhấn để xem Họ Actini (89–103)";
     actMarker.innerHTML = `<strong style="color:#fb7185">89–103</strong><span>Actini</span>`;
+    actMarker.addEventListener("click", () => {
+      state.selectedPeriod = state.selectedPeriod === "actinide" ? "all" : "actinide";
+      syncPeriodGroupDropdowns();
+      renderAll();
+    });
     board.appendChild(actMarker);
 
     const scopedElements = getActiveScopeElements();
@@ -494,12 +643,12 @@
       const fallbackUri = createElementVisualDataURI(el);
 
       tile.className = `el-tile ${!isMatched ? "dimmed" : ""} ${el.number === state.spotlightNumber ? "selected-tile" : ""}`;
-      tile.style.gridColumn = String(el.xpos);
-      tile.style.gridRow = String(el.ypos);
+      tile.style.gridColumn = String(el.xpos + 1);
+      tile.style.gridRow = String(el.ypos + 1);
       tile.style.setProperty("--el-color", color);
       tile.setAttribute("data-number", String(el.number));
       tile.setAttribute("tabindex", "0");
-      tile.setAttribute("aria-label", `${el.number}. ${el.name_vi} (${el.symbol})`);
+      tile.setAttribute("aria-label", `${el.number}. ${el.name_vi} (${el.symbol}) - Chu kỳ ${el.period}, Nhóm ${el.group}`);
 
       tile.innerHTML = `
         <img class="el-tile-bg-img" src="${imgSrc}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${fallbackUri}';" />
@@ -811,6 +960,556 @@
     });
   }
 
+  // =====================================================================
+  // MÔ HÌNH 3D: Trình dựng nguyên tử 3D tương tác (Canvas, không cần thư viện)
+  // =====================================================================
+  const Atom3D = (function () {
+    let canvas = null;
+    let ctx = null;
+    let el = null;
+    let nucleus = [];
+    let shells = [];
+    let nucleusR = 0.3;
+    let rotX = -0.35;
+    let rotY = 0.6;
+    let zoom = 1;
+    let t = 0;
+    let rafId = null;
+    let running = false;
+    let dragging = false;
+    let lastX = 0;
+    let lastY = 0;
+    let lastInteract = 0;
+    let pinchDist = 0;
+    const pointers = new Map();
+    let dpr = 1;
+    let W = 0;
+    let H = 0;
+    let lastTs = 0;
+
+    function hexToRgb(hex) {
+      const h = hex.replace("#", "");
+      return [parseInt(h.substr(0, 2), 16), parseInt(h.substr(2, 2), 16), parseInt(h.substr(4, 2), 16)];
+    }
+
+    function buildModel(element) {
+      el = element;
+      const Z = element.number;
+      const A = Math.max(Z, Math.round(Number(element.atomic_mass) || Z * 2));
+      const N = Math.max(0, A - Z);
+      const total = Z + N;
+      const shown = Math.min(total, 90);
+      const pShown = Math.max(1, Math.round((Z / total) * shown));
+
+      nucleusR = 0.1 + 0.05 * Math.cbrt(shown);
+      const golden = Math.PI * (3 - Math.sqrt(5));
+      const pr = (nucleusR / Math.cbrt(shown)) * 1.05;
+
+      // Trộn proton & nơtron xen kẽ đều
+      const types = [];
+      for (let i = 0; i < shown; i++) types.push(i < pShown ? "p" : "n");
+      let seed = Z * 9301 + 49297;
+      const rnd = () => {
+        seed = (seed * 9301 + 49297) % 233280;
+        return seed / 233280;
+      };
+      for (let i = types.length - 1; i > 0; i--) {
+        const j = Math.floor(rnd() * (i + 1));
+        [types[i], types[j]] = [types[j], types[i]];
+      }
+
+      nucleus = [];
+      for (let i = 0; i < shown; i++) {
+        const r = shown === 1 ? 0 : nucleusR * Math.cbrt((i + 0.5) / shown);
+        const y = 1 - (2 * (i + 0.5)) / shown;
+        const rad = Math.sqrt(Math.max(0, 1 - y * y));
+        const th = golden * i;
+        nucleus.push({
+          x: r * rad * Math.cos(th),
+          y: r * y,
+          z: r * rad * Math.sin(th),
+          r: pr,
+          type: types[i]
+        });
+      }
+
+      const shellArr = element.shells && element.shells.length ? element.shells : [Z];
+      const count = shellArr.length;
+      const inner = nucleusR + 0.22;
+      const outer = 1.0;
+      shells = shellArr.map((n, k) => {
+        const radius = count === 1 ? (inner + outer) / 2 : inner + ((outer - inner) * k) / (count - 1);
+        return {
+          n,
+          radius,
+          tilt: 0.35 + ((k * 0.62) % 1.25),
+          azim: k * 1.13,
+          speed: 1.1 / (1 + k * 0.45)
+        };
+      });
+    }
+
+    function rotatePoint(x, y, z) {
+      // Xoay quanh trục Y rồi trục X
+      const cy = Math.cos(rotY), sy = Math.sin(rotY);
+      let x1 = x * cy + z * sy;
+      let z1 = -x * sy + z * cy;
+      const cx = Math.cos(rotX), sx = Math.sin(rotX);
+      let y1 = y * cx - z1 * sx;
+      let z2 = y * sx + z1 * cx;
+      return [x1, y1, z2];
+    }
+
+    function project(x, y, z) {
+      const [rx, ry, rz] = rotatePoint(x, y, z);
+      const camD = 3.2;
+      const persp = camD / (camD - rz);
+      const scale = Math.min(W, H) * 0.42 * zoom;
+      return { sx: W / 2 + rx * scale * persp, sy: H / 2 - ry * scale * persp, depth: rz, persp, scale };
+    }
+
+    function orbitPoint(s, angle) {
+      // Điểm trên quỹ đạo tròn nghiêng trong không gian 3D
+      let x = s.radius * Math.cos(angle);
+      let y = 0;
+      let z = s.radius * Math.sin(angle);
+      // nghiêng quanh trục X
+      const ct = Math.cos(s.tilt), st = Math.sin(s.tilt);
+      const y2 = y * ct - z * st;
+      const z2 = y * st + z * ct;
+      // xoay phương vị quanh trục Y
+      const ca = Math.cos(s.azim), sa = Math.sin(s.azim);
+      return [x * ca + z2 * sa, y2, -x * sa + z2 * ca];
+    }
+
+    function drawSphere(sx, sy, r, base, alpha = 1) {
+      const [cr, cg, cb] = base;
+      const g = ctx.createRadialGradient(sx - r * 0.35, sy - r * 0.35, r * 0.1, sx, sy, r);
+      g.addColorStop(0, `rgba(${Math.min(255, cr + 110)},${Math.min(255, cg + 110)},${Math.min(255, cb + 110)},${alpha})`);
+      g.addColorStop(0.45, `rgba(${cr},${cg},${cb},${alpha})`);
+      g.addColorStop(1, `rgba(${Math.round(cr * 0.25)},${Math.round(cg * 0.25)},${Math.round(cb * 0.25)},${alpha})`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(sx, sy, Math.max(0.5, r), 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function frame(ts) {
+      if (!running) return;
+      const dt = lastTs ? Math.min(0.05, (ts - lastTs) / 1000) : 0.016;
+      lastTs = ts;
+      t += dt;
+
+      if (state.m3dAutoRotate && !dragging && performance.now() - lastInteract > 1200) {
+        rotY += dt * 0.35;
+      }
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+
+      const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+      const elecRgb = hexToRgb(color);
+
+      // Quầng sáng hạt nhân
+      const c0 = project(0, 0, 0);
+      const glowR = nucleusR * c0.scale * c0.persp * 2.4;
+      const glow = ctx.createRadialGradient(c0.sx, c0.sy, 0, c0.sx, c0.sy, glowR);
+      glow.addColorStop(0, "rgba(255,170,120,0.28)");
+      glow.addColorStop(1, "rgba(255,120,80,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(c0.sx, c0.sy, glowR, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Vẽ quỹ đạo
+      shells.forEach((s) => {
+        const seg = 96;
+        for (let i = 0; i < seg; i++) {
+          const a1 = (i / seg) * Math.PI * 2;
+          const a2 = ((i + 1) / seg) * Math.PI * 2;
+          const p1 = orbitPoint(s, a1);
+          const p2 = orbitPoint(s, a2);
+          const q1 = project(p1[0], p1[1], p1[2]);
+          const q2 = project(p2[0], p2[1], p2[2]);
+          const depthA = 0.15 + 0.3 * ((q1.depth + 1.1) / 2.2);
+          ctx.strokeStyle = `rgba(${elecRgb[0]},${elecRgb[1]},${elecRgb[2]},${Math.max(0.06, depthA)})`;
+          ctx.lineWidth = 1.1;
+          ctx.beginPath();
+          ctx.moveTo(q1.sx, q1.sy);
+          ctx.lineTo(q2.sx, q2.sy);
+          ctx.stroke();
+        }
+      });
+
+      // Thu thập các vật thể để sắp xếp theo độ sâu
+      const items = [];
+      nucleus.forEach((p) => {
+        const q = project(p.x, p.y, p.z);
+        items.push({ kind: p.type, q, r: p.r * q.scale * q.persp });
+      });
+      shells.forEach((s, k) => {
+        for (let i = 0; i < s.n; i++) {
+          const angle = (i / s.n) * Math.PI * 2 + t * s.speed * (k % 2 === 0 ? 1 : -1);
+          const pt = orbitPoint(s, angle);
+          const q = project(pt[0], pt[1], pt[2]);
+          items.push({ kind: "e", q, r: Math.max(2.2, 0.028 * q.scale * q.persp) });
+        }
+      });
+      items.sort((a, b) => a.q.depth - b.q.depth);
+
+      items.forEach((it) => {
+        const fog = 0.55 + 0.45 * ((it.q.depth + 1.1) / 2.2);
+        if (it.kind === "p") {
+          drawSphere(it.q.sx, it.q.sy, it.r, [235, 72, 72], Math.min(1, fog + 0.2));
+        } else if (it.kind === "n") {
+          drawSphere(it.q.sx, it.q.sy, it.r, [96, 140, 210], Math.min(1, fog + 0.2));
+        } else {
+          const eg = ctx.createRadialGradient(it.q.sx, it.q.sy, 0, it.q.sx, it.q.sy, it.r * 3.2);
+          eg.addColorStop(0, `rgba(${elecRgb[0]},${elecRgb[1]},${elecRgb[2]},${0.55 * fog})`);
+          eg.addColorStop(1, `rgba(${elecRgb[0]},${elecRgb[1]},${elecRgb[2]},0)`);
+          ctx.fillStyle = eg;
+          ctx.beginPath();
+          ctx.arc(it.q.sx, it.q.sy, it.r * 3.2, 0, Math.PI * 2);
+          ctx.fill();
+          drawSphere(it.q.sx, it.q.sy, it.r, elecRgb, fog);
+        }
+      });
+
+      // Nhãn ký hiệu
+      ctx.fillStyle = "rgba(255,255,255,0.9)";
+      ctx.font = `800 ${Math.round(Math.min(W, H) * 0.05)}px 'Space Grotesk', sans-serif`;
+      ctx.textAlign = "left";
+      ctx.fillText(`${el.symbol}`, 16, H - 46);
+      ctx.fillStyle = "rgba(148,163,184,0.95)";
+      ctx.font = `600 12px 'JetBrains Mono', monospace`;
+      ctx.fillText(`Z=${el.number}  •  [${(el.shells || []).join(", ")}]`, 16, H - 24);
+
+      rafId = requestAnimationFrame(frame);
+    }
+
+    function resize() {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = Math.max(1, rect.width);
+      H = Math.max(1, rect.height);
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+    }
+
+    function attach(cv) {
+      canvas = cv;
+      ctx = canvas.getContext("2d");
+      resize();
+      new ResizeObserver(resize).observe(canvas);
+
+      canvas.addEventListener("pointerdown", (e) => {
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        canvas.setPointerCapture(e.pointerId);
+        dragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        lastInteract = performance.now();
+        if (pointers.size === 2) {
+          const [a, b] = [...pointers.values()];
+          pinchDist = Math.hypot(a.x - b.x, a.y - b.y);
+        }
+      });
+      canvas.addEventListener("pointermove", (e) => {
+        if (!pointers.has(e.pointerId)) return;
+        pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+        lastInteract = performance.now();
+        if (pointers.size === 2) {
+          const [a, b] = [...pointers.values()];
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (pinchDist > 0) zoom = Math.min(2.6, Math.max(0.5, zoom * (d / pinchDist)));
+          pinchDist = d;
+          return;
+        }
+        if (!dragging) return;
+        rotY += (e.clientX - lastX) * 0.01;
+        rotX += (e.clientY - lastY) * 0.01;
+        rotX = Math.max(-1.5, Math.min(1.5, rotX));
+        lastX = e.clientX;
+        lastY = e.clientY;
+      });
+      const end = (e) => {
+        pointers.delete(e.pointerId);
+        if (pointers.size < 2) pinchDist = 0;
+        if (pointers.size === 0) dragging = false;
+      };
+      canvas.addEventListener("pointerup", end);
+      canvas.addEventListener("pointercancel", end);
+      canvas.addEventListener(
+        "wheel",
+        (e) => {
+          e.preventDefault();
+          lastInteract = performance.now();
+          zoom = Math.min(2.6, Math.max(0.5, zoom * (e.deltaY < 0 ? 1.08 : 0.926)));
+        },
+        { passive: false }
+      );
+    }
+
+    return {
+      attach,
+      setElement(element) {
+        buildModel(element);
+      },
+      start() {
+        if (running || !canvas || !el) return;
+        resize();
+        running = true;
+        lastTs = 0;
+        rafId = requestAnimationFrame(frame);
+      },
+      stop() {
+        running = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = null;
+      },
+      reset() {
+        rotX = -0.35;
+        rotY = 0.6;
+        zoom = 1;
+      }
+    };
+  })();
+
+  let atom3DAttached = false;
+
+  function getModel3DElement() {
+    return ALL_ELEMENTS.find((e) => e.number === state.model3dNumber) || ALL_ELEMENTS[0];
+  }
+
+  function isModelViewerReady() {
+    return !!(window.customElements && window.customElements.get("model-viewer"));
+  }
+
+  // Cập nhật sân khấu 3D (GLB hoặc nguyên tử tương tác)
+  function updateModel3DStage() {
+    const el = getModel3DElement();
+    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const section = document.getElementById("viewModel3DSection");
+    section?.style.setProperty("--m3d-color", color);
+
+    const mv = document.getElementById("m3dModelViewer");
+    const cv = document.getElementById("m3dAtomCanvas");
+    const loading = document.getElementById("m3dLoading");
+    const loadingText = document.getElementById("m3dLoadingText");
+    const isActive = state.activeView === "model3d";
+
+    document.getElementById("btnM3dGlb")?.classList.toggle("active", state.model3dMode === "glb");
+    document.getElementById("btnM3dAtom")?.classList.toggle("active", state.model3dMode === "atom");
+    document.getElementById("m3dAutoRotateBtn")?.classList.toggle("active", state.m3dAutoRotate);
+
+    if (state.model3dMode === "glb") {
+      cv.hidden = true;
+      Atom3D.stop();
+      mv.hidden = false;
+
+      if (!isModelViewerReady()) {
+        loading.hidden = false;
+        loadingText.textContent = "Đang khởi tạo trình xem 3D...";
+        window.customElements?.whenDefined("model-viewer").then(() => updateModel3DStage());
+        return;
+      }
+
+      if (state.m3dAutoRotate) mv.setAttribute("auto-rotate", "");
+      else mv.removeAttribute("auto-rotate");
+
+      const src = el.model_3d_url || "";
+      if (!src) {
+        loading.hidden = false;
+        loadingText.textContent = "Chưa có mô hình GLB — chuyển sang Nguyên tử tương tác";
+        state.model3dMode = "atom";
+        setTimeout(updateModel3DStage, 700);
+        return;
+      }
+      if (mv.getAttribute("src") !== src) {
+        loading.hidden = false;
+        loadingText.textContent = `Đang tải mô hình 3D của ${el.name_vi}...`;
+        mv.setAttribute("alt", `Mô hình 3D của nguyên tố ${el.name_vi} (${el.symbol})`);
+        mv.setAttribute("src", src);
+      }
+    } else {
+      mv.hidden = true;
+      loading.hidden = true;
+      cv.hidden = false;
+      if (!atom3DAttached) {
+        Atom3D.attach(cv);
+        atom3DAttached = true;
+      }
+      Atom3D.setElement(el);
+      if (isActive) Atom3D.start();
+    }
+  }
+
+  function renderModel3DInfo() {
+    const panel = document.getElementById("m3dInfoPanel");
+    if (!panel) return;
+    const el = getModel3DElement();
+    const Z = el.number;
+    const A = Math.max(Z, Math.round(Number(el.atomic_mass) || Z * 2));
+    const N = Math.max(0, A - Z);
+    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const qrSvg = getElementQRCodeSVG(el);
+
+    panel.innerHTML = `
+      <div class="m3d-info-head">
+        <div class="m3d-info-sym"><small>#${Z}</small><strong>${el.symbol}</strong></div>
+        <div style="min-width:0">
+          <span class="gallery-cat-tag" style="--el-color:${color}">${el.category_vi}</span>
+          <h2>${el.name_vi}</h2>
+          <p>${el.name_en} • ${el.atomic_mass} u</p>
+        </div>
+      </div>
+
+      <div class="m3d-particles">
+        <div class="m3d-particle"><span class="dot" style="background:#eb4848"></span><strong>${Z}</strong><small>Proton (p⁺)</small></div>
+        <div class="m3d-particle"><span class="dot" style="background:#608cd2"></span><strong>${N}</strong><small>Nơtron (n⁰)</small></div>
+        <div class="m3d-particle"><span class="dot" style="background:${color}"></span><strong>${Z}</strong><small>Electron (e⁻)</small></div>
+      </div>
+
+      <div class="modal-info-box">
+        <h4>Phân bố electron theo lớp</h4>
+        <div class="m3d-shell-bar">
+          ${(el.shells || []).map((n, i) => `<span class="m3d-shell-chip">${"KLMNOPQ"[i] || i + 1}: ${n}e⁻</span>`).join("")}
+        </div>
+        <p style="font-family: var(--font-mono); font-size: 0.78rem; margin-top: 6px; color: var(--text-secondary);">${el.electron_configuration_semantic || el.electron_configuration}</p>
+      </div>
+
+      <div class="modal-info-box">
+        <h4>Giới thiệu</h4>
+        <p style="font-size: 0.84rem;">${el.summary_vi}</p>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="spotlight-qr-mini" style="--spot-color:${color}; width:72px; height:72px;" title="Mã QR của ${el.name_vi}">${qrSvg}</div>
+        <p style="font-size:0.76rem; color: var(--text-muted);">Mô hình hiển thị cấu trúc nguyên tử Bohr: hạt nhân gồm proton (đỏ) và nơtron (xanh), các electron chuyển động trên ${
+          (el.shells || []).length
+        } lớp vỏ.</p>
+      </div>
+
+      <div class="m3d-info-actions">
+        <button type="button" class="tool-btn" id="m3dOpenDetailBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span>Chi tiết</span>
+        </button>
+        <button type="button" class="tool-btn highlight-btn" id="m3dRandomBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          <span>Ngẫu nhiên</span>
+        </button>
+      </div>
+    `;
+
+    document.getElementById("m3dOpenDetailBtn")?.addEventListener("click", () => openElementModal(el.number));
+    document.getElementById("m3dRandomBtn")?.addEventListener("click", () => {
+      selectModel3DElement(Math.floor(Math.random() * state.maxElements) + 1);
+    });
+  }
+
+  function renderModel3DPicker() {
+    const picker = document.getElementById("m3dPicker");
+    if (!picker) return;
+    const list = getActiveScopeElements().filter(matchesFilters);
+    document.getElementById("m3dPickerCount").textContent = `${list.length} nguyên tố`;
+    picker.innerHTML = list
+      .map((el) => {
+        const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+        const active = el.number === state.model3dNumber ? "active" : "";
+        return `<button type="button" class="m3d-pick ${active}" data-m3d-num="${el.number}" style="--el-color:${color}" title="${el.name_vi} (${el.symbol})">
+          <small>${el.number}</small><strong>${el.symbol}</strong><span>${el.name_vi}</span>
+        </button>`;
+      })
+      .join("");
+    picker.querySelectorAll("[data-m3d-num]").forEach((btn) => {
+      btn.addEventListener("click", () => selectModel3DElement(Number(btn.getAttribute("data-m3d-num"))));
+    });
+  }
+
+  function selectModel3DElement(num) {
+    if (num < 1) num = state.maxElements;
+    if (num > state.maxElements) num = 1;
+    state.model3dNumber = num;
+    updateModel3DStage();
+    renderModel3DInfo();
+    document.querySelectorAll("#m3dPicker .m3d-pick").forEach((b) => {
+      b.classList.toggle("active", Number(b.getAttribute("data-m3d-num")) === num);
+    });
+    const activeBtn = document.querySelector(`#m3dPicker .m3d-pick[data-m3d-num="${num}"]`);
+    activeBtn?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+  }
+
+  function renderModel3DView() {
+    if (state.model3dNumber > state.maxElements) state.model3dNumber = state.maxElements;
+    updateModel3DStage();
+    renderModel3DInfo();
+    renderModel3DPicker();
+  }
+
+  function openModel3DFor(num) {
+    state.model3dNumber = num;
+    closeElementModal();
+    document.querySelector('.view-btn[data-view="model3d"]')?.click();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function initModel3DEvents() {
+    const mv = document.getElementById("m3dModelViewer");
+    const loading = document.getElementById("m3dLoading");
+    const loadingText = document.getElementById("m3dLoadingText");
+
+    mv?.addEventListener("load", () => {
+      loading.hidden = true;
+    });
+    mv?.addEventListener("error", () => {
+      loadingText.textContent = "Không tải được mô hình GLB (kiểm tra kết nối mạng) — chuyển sang Nguyên tử tương tác";
+      setTimeout(() => {
+        state.model3dMode = "atom";
+        updateModel3DStage();
+      }, 1200);
+    });
+
+    document.getElementById("btnM3dGlb")?.addEventListener("click", () => {
+      state.model3dMode = "glb";
+      updateModel3DStage();
+    });
+    document.getElementById("btnM3dAtom")?.addEventListener("click", () => {
+      state.model3dMode = "atom";
+      updateModel3DStage();
+    });
+
+    document.getElementById("m3dAutoRotateBtn")?.addEventListener("click", () => {
+      state.m3dAutoRotate = !state.m3dAutoRotate;
+      updateModel3DStage();
+    });
+
+    document.getElementById("m3dResetBtn")?.addEventListener("click", () => {
+      if (state.model3dMode === "glb" && mv) {
+        mv.cameraOrbit = "0deg 75deg 105%";
+        mv.fieldOfView = "auto";
+        mv.jumpCameraToGoal?.();
+      } else {
+        Atom3D.reset();
+      }
+    });
+
+    document.getElementById("m3dFullscreenBtn")?.addEventListener("click", () => {
+      const wrap = document.getElementById("m3dCanvasWrap");
+      if (document.fullscreenElement) document.exitFullscreen?.();
+      else wrap?.requestFullscreen?.();
+    });
+
+    document.getElementById("m3dPrevBtn")?.addEventListener("click", () => selectModel3DElement(state.model3dNumber - 1));
+    document.getElementById("m3dNextBtn")?.addEventListener("click", () => selectModel3DElement(state.model3dNumber + 1));
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) Atom3D.stop();
+      else if (state.activeView === "model3d" && state.model3dMode === "atom") Atom3D.start();
+    });
+  }
+
   // Mở Cửa Sổ Modal Chi Tiết Nguyên Tố (Tích hợp Mã QR & Nút Tải Thẻ QR PNG)
   function openElementModal(number) {
     const el = ALL_ELEMENTS.find((item) => item.number === number);
@@ -880,6 +1579,10 @@
             <div style="font-family: var(--font-mono); font-size: 0.72rem; color: ${color}; margin-top: 2px;">
               Lớp vỏ: [${(el.shells || []).join(", ")}]
             </div>
+            <button type="button" class="modal-3d-btn" id="modalOpen3DBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              <span>Xem mô hình 3D</span>
+            </button>
           </div>
 
           <div class="modal-qr-card">
@@ -912,6 +1615,9 @@
     document.getElementById("modalDownloadQRBtn")?.addEventListener("click", () => {
       downloadElementQRCard(el);
     });
+    document.getElementById("modalOpen3DBtn")?.addEventListener("click", () => {
+      openModel3DFor(el.number);
+    });
 
     modal.hidden = false;
   }
@@ -933,6 +1639,12 @@
       renderCompareCards();
     } else if (state.activeView === "qrcodes") {
       renderQRCodesView();
+    } else if (state.activeView === "model3d") {
+      renderModel3DView();
+    }
+
+    if (state.activeView !== "model3d") {
+      Atom3D.stop();
     }
   }
 
@@ -1007,6 +1719,8 @@
         secGallery.hidden = view !== "gallery";
         secCompare.hidden = view !== "compare";
         if (secQRCodes) secQRCodes.hidden = view !== "qrcodes";
+        const secModel3D = document.getElementById("viewModel3DSection");
+        if (secModel3D) secModel3D.hidden = view !== "model3d";
 
         renderAll();
       });
@@ -1084,6 +1798,30 @@
         state.selectedPhase = pill.getAttribute("data-phase") || "all";
         renderAll();
       });
+    });
+
+    // Lọc theo Chu kỳ & Nhóm (Dropdown và nút bỏ lọc)
+    const periodFilterSelect = document.getElementById("periodFilterSelect");
+    const groupFilterSelect = document.getElementById("groupFilterSelect");
+    const resetPeriodGroupBtn = document.getElementById("resetPeriodGroupBtn");
+
+    periodFilterSelect?.addEventListener("change", () => {
+      state.selectedPeriod = periodFilterSelect.value;
+      syncPeriodGroupDropdowns();
+      renderAll();
+    });
+
+    groupFilterSelect?.addEventListener("change", () => {
+      state.selectedGroup = groupFilterSelect.value;
+      syncPeriodGroupDropdowns();
+      renderAll();
+    });
+
+    resetPeriodGroupBtn?.addEventListener("click", () => {
+      state.selectedPeriod = "all";
+      state.selectedGroup = "all";
+      syncPeriodGroupDropdowns();
+      renderAll();
     });
 
     // Thanh trượt nhiệt độ mô phỏng
@@ -1165,6 +1903,7 @@
   // Khởi chạy khi DOM sẵn sàng
   document.addEventListener("DOMContentLoaded", () => {
     initEvents();
+    initModel3DEvents();
     populateCompareSelectors();
     renderAll();
     checkUrlQRCodeDeepLink();

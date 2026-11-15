@@ -90,6 +90,10 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/><path d="M18 14h3v3h-3z"/><path d="M14 18h3v3h-3z"/><path d="M18 18h3v3h-3z"/></svg>
             <span>Mã QR Nguyên Tố</span>
           </button>
+          <button type="button" class="view-btn" data-view="model3d" id="tabViewModel3D" role="tab" aria-selected="false">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+            <span>Mô Hình 3D</span>
+          </button>
         </div>
       </div>
     </div>
@@ -124,7 +128,7 @@
       <div class="expandable-controls" id="expandableControls">
         <!-- Phase Filter Pills -->
         <div class="phase-filters" role="group" aria-label="Lọc theo trạng thái vật chất">
-          <button type="button" class="phase-pill active" data-phase="all">Tất cả (<span id="totalVisibleCount">108</span>)</button>
+          <button type="button" class="phase-pill active" data-phase="all">Tất cả (<span id="totalVisibleCount">118</span>)</button>
           <button type="button" class="phase-pill" data-phase="Solid">
             <span class="phase-dot solid"></span> Rắn
           </button>
@@ -133,6 +137,60 @@
           </button>
           <button type="button" class="phase-pill" data-phase="Gas">
             <span class="phase-dot gas"></span> Khí
+          </button>
+        </div>
+
+        <!-- Period & Group Select Filters -->
+        <div class="period-group-filters" role="group" aria-label="Bộ lọc Chu kỳ và Nhóm">
+          <div class="filter-select-box">
+            <label for="periodFilterSelect">
+              <span>Chu kỳ:</span>
+            </label>
+            <select id="periodFilterSelect" aria-label="Lọc theo Chu kỳ">
+              <option value="all">Tất cả chu kỳ (1–7)</option>
+              <option value="1">Chu kỳ 1 (H, He)</option>
+              <option value="2">Chu kỳ 2 (Li → Ne)</option>
+              <option value="3">Chu kỳ 3 (Na → Ar)</option>
+              <option value="4">Chu kỳ 4 (K → Kr)</option>
+              <option value="5">Chu kỳ 5 (Rb → Xe)</option>
+              <option value="6">Chu kỳ 6 (Cs → Rn)</option>
+              <option value="7">Chu kỳ 7 (Fr → Og)</option>
+              <option value="lanthanide">Họ Lantan (57–71)</option>
+              <option value="actinide">Họ Actini (89–103)</option>
+            </select>
+          </div>
+
+          <div class="filter-select-box">
+            <label for="groupFilterSelect">
+              <span>Nhóm:</span>
+            </label>
+            <select id="groupFilterSelect" aria-label="Lọc theo Nhóm">
+              <option value="all">Tất cả nhóm (1–18)</option>
+              <option value="1">Nhóm 1 (IA - Kim loại kiềm &amp; H)</option>
+              <option value="2">Nhóm 2 (IIA - Kim loại kiềm thổ)</option>
+              <option value="3">Nhóm 3 (IIIB - Sc, Y...)</option>
+              <option value="4">Nhóm 4 (IVB - Ti, Zr, Hf, Rf)</option>
+              <option value="5">Nhóm 5 (VB - V, Nb, Ta, Db)</option>
+              <option value="6">Nhóm 6 (VIB - Cr, Mo, W, Sg)</option>
+              <option value="7">Nhóm 7 (VIIB - Mn, Tc, Re, Bh)</option>
+              <option value="8">Nhóm 8 (VIIIB - Fe, Ru, Os, Hs)</option>
+              <option value="9">Nhóm 9 (VIIIB - Co, Rh, Ir, Mt)</option>
+              <option value="10">Nhóm 10 (VIIIB - Ni, Pd, Pt, Ds)</option>
+              <option value="11">Nhóm 11 (IB - Cu, Ag, Au, Rg)</option>
+              <option value="12">Nhóm 12 (IIB - Zn, Cd, Hg, Cn)</option>
+              <option value="13">Nhóm 13 (IIIA - Nhóm Bo / Nhôm)</option>
+              <option value="14">Nhóm 14 (IVA - Nhóm Cacbon / Silic)</option>
+              <option value="15">Nhóm 15 (VA - Pnictogen / Nitơ)</option>
+              <option value="16">Nhóm 16 (VIA - Chalcogen / Oxy)</option>
+              <option value="17">Nhóm 17 (VIIA - Halogen)</option>
+              <option value="18">Nhóm 18 (VIIIA - Khí hiếm)</option>
+              <option value="f-block">Khối f (Họ Lantan &amp; Actini)</option>
+            </select>
+          </div>
+
+          <button type="button" class="btn-reset-pg" id="resetPeriodGroupBtn" hidden title="Bỏ lọc chu kỳ &amp; nhóm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <span>Bỏ lọc</span>
           </button>
         </div>
 
@@ -179,7 +237,7 @@
       <div class="table-display-bar">
         <div class="table-hint">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          <span id="tableHintText">Chạm hoặc di chuột vào ô nguyên tố để xem nhanh thông tin, hình ảnh &amp; mã QR.</span>
+          <span id="tableHintText">Chạm vào hàng số Chu kỳ (1–7) hoặc cột số Nhóm (1–18) để lọc nhanh. Di chuột để xem chi tiết.</span>
         </div>
         <div class="table-submode-switch" role="group" aria-label="Kiểu hiển thị bảng tuần hoàn">
           <button type="button" class="submode-btn active" data-submode="grid18" id="btnSubmodeGrid18">
@@ -292,6 +350,92 @@
         <!-- Rendered by app.js -->
       </div>
     </section>
+
+    <!-- VIEW 5: 3D Model Viewer (Mô hình 3D của các nguyên tố) -->
+    <section id="viewModel3DSection" class="view-section" hidden>
+      <div class="m3d-layout">
+        <!-- 3D Stage -->
+        <div class="m3d-stage glass-panel" id="m3dStage">
+          <div class="m3d-stage-top">
+            <div class="m3d-mode-switch" role="group" aria-label="Kiểu mô hình 3D">
+              <button type="button" class="submode-btn active" data-m3dmode="glb" id="btnM3dGlb" title="Mô hình 3D thực tế dạng GLB (hỗ trợ AR trên điện thoại)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                <span>Mô hình 3D (GLB + AR)</span>
+              </button>
+              <button type="button" class="submode-btn" data-m3dmode="atom" id="btnM3dAtom" title="Nguyên tử 3D tương tác: hạt nhân proton/nơtron và electron chuyển động">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>
+                <span>Nguyên tử tương tác</span>
+              </button>
+            </div>
+            <div class="m3d-stage-actions">
+              <button type="button" class="m3d-icon-btn active" id="m3dAutoRotateBtn" title="Bật/Tắt tự xoay">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
+              </button>
+              <button type="button" class="m3d-icon-btn" id="m3dResetBtn" title="Đặt lại góc nhìn">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M3 12h3"/><path d="M18 12h3"/><path d="M12 3v3"/><path d="M12 18v3"/></svg>
+              </button>
+              <button type="button" class="m3d-icon-btn" id="m3dFullscreenBtn" title="Toàn màn hình">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="m3d-canvas-wrap" id="m3dCanvasWrap">
+            <!-- Google model-viewer (GLB 3D model, AR on mobile) -->
+            <model-viewer
+              id="m3dModelViewer"
+              class="m3d-viewer"
+              camera-controls
+              auto-rotate
+              auto-rotate-delay="0"
+              rotation-per-second="25deg"
+              touch-action="pan-y"
+              shadow-intensity="1"
+              exposure="1.05"
+              interaction-prompt="none"
+              ar
+              ar-modes="webxr scene-viewer quick-look"
+              alt="Mô hình 3D của nguyên tố hóa học">
+              <button slot="ar-button" class="m3d-ar-btn" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                Xem AR trong không gian thật
+              </button>
+            </model-viewer>
+
+            <!-- Custom interactive 3D atom renderer (works offline) -->
+            <canvas id="m3dAtomCanvas" class="m3d-viewer" hidden aria-label="Mô hình nguyên tử 3D tương tác"></canvas>
+
+            <div class="m3d-loading" id="m3dLoading" hidden>
+              <div class="m3d-spinner"></div>
+              <span id="m3dLoadingText">Đang tải mô hình 3D...</span>
+            </div>
+
+            <div class="m3d-hint" id="m3dHint">Kéo để xoay • Cuộn / chụm 2 ngón để phóng to</div>
+
+            <button type="button" class="m3d-nav-arrow left" id="m3dPrevBtn" aria-label="Nguyên tố trước">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button type="button" class="m3d-nav-arrow right" id="m3dNextBtn" aria-label="Nguyên tố tiếp theo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Info Panel -->
+        <aside class="m3d-info glass-panel" id="m3dInfoPanel">
+          <!-- Rendered by app.js -->
+        </aside>
+      </div>
+
+      <!-- Element Picker -->
+      <div class="m3d-picker-head">
+        <h3>Chọn nguyên tố để xem 3D</h3>
+        <span id="m3dPickerCount"></span>
+      </div>
+      <div class="m3d-picker" id="m3dPicker">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
   </main>
 
   <!-- Mobile / Tablet Sticky Bottom Navigation Bar (App-like UX for thumb reach) -->
@@ -307,6 +451,10 @@
     <button type="button" class="mob-nav-item view-btn" data-view="qrcodes">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/><path d="M18 14h3v3h-3z"/><path d="M14 18h3v3h-3z"/><path d="M18 18h3v3h-3z"/></svg>
       <span>Mã QR</span>
+    </button>
+    <button type="button" class="mob-nav-item view-btn" data-view="model3d">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg>
+      <span>3D</span>
     </button>
     <button type="button" class="mob-nav-item view-btn" data-view="compare">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></svg>
@@ -353,6 +501,7 @@
     </div>
   </footer>
 
+  <script type="module" src="model-viewer.min.js"></script>
   <script src="qrcode.min.js"></script>
   <script src="elements_data.js"></script>
   <script src="app.js"></script>

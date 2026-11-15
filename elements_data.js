@@ -1,4 +1,4 @@
-// Dữ liệu đầy đủ các nguyên tố hóa học (Hỗ trợ chế độ 108 nguyên tố & 118 nguyên tố)
+// Dữ liệu đầy đủ 118 nguyên tố hóa học (kèm liên kết mô hình 3D .glb)
 window.ELEMENTS_DATA = [
   {
     "number": 1,
@@ -37,7 +37,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Vial of glowing ultrapure hydrogen, H2. Original size in cm: 1 x 5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_001_hydrogen/element_001_hydrogen_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Hydrogen_Spectra.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Hydrogen"
+    "source_url": "https://en.wikipedia.org/wiki/Hydrogen",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_001_hydrogen/element_001_hydrogen.glb"
   },
   {
     "number": 2,
@@ -76,7 +77,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Vial of glowing ultrapure helium. Original size in cm: 1 x 5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_002_helium/element_002_helium_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Helium_spectrum.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Helium"
+    "source_url": "https://en.wikipedia.org/wiki/Helium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_002_helium/element_002_helium.glb"
   },
   {
     "number": 3,
@@ -116,7 +118,8 @@ window.ELEMENTS_DATA = [
     "image_title": "0.5 Grams Lithium under Argon. Original size of the largest piece in cm: 0.3 x 4",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_003_lithium/element_003_lithium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Lithium"
+    "source_url": "https://en.wikipedia.org/wiki/Lithium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_003_lithium/element_003_lithium.glb"
   },
   {
     "number": 4,
@@ -156,7 +159,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure Beryllium bead, 2.5 grams. Original size in cm: 1 x 1.5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_004_beryllium/element_004_beryllium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Beryllium"
+    "source_url": "https://en.wikipedia.org/wiki/Beryllium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_004_beryllium/element_004_beryllium.glb"
   },
   {
     "number": 5,
@@ -196,7 +200,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure Crystalline Boron, front and back side. Original size in cm: 2 x 3",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_005_boron/element_005_boron_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Boron"
+    "source_url": "https://en.wikipedia.org/wiki/Boron",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_005_boron/element_005_boron.glb"
   },
   {
     "number": 6,
@@ -236,7 +241,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Element 6 - Carbon",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_006_carbon/element_006_carbon_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Carbon_Spectra.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Carbon"
+    "source_url": "https://en.wikipedia.org/wiki/Carbon",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_006_carbon/element_006_carbon.glb"
   },
   {
     "number": 7,
@@ -276,7 +282,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Vial of Glowing Ultrapure Nitrogen, N2. Original size in cm: 1 x 5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_007_nitrogen/element_007_nitrogen_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Nitrogen_Spectra.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Nitrogen"
+    "source_url": "https://en.wikipedia.org/wiki/Nitrogen",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_007_nitrogen/element_007_nitrogen.glb"
   },
   {
     "number": 8,
@@ -316,7 +323,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Liquid Oxygen in a Beaker",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_008_oxygen/element_008_oxygen_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Oxygen_spectre.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Oxygen"
+    "source_url": "https://en.wikipedia.org/wiki/Oxygen",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_008_oxygen/element_008_oxygen.glb"
   },
   {
     "number": 9,
@@ -356,7 +364,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Liquid Fluorine at -196°C",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_009_fluorine/element_009_fluorine_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Fluorine"
+    "source_url": "https://en.wikipedia.org/wiki/Fluorine",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_009_fluorine/element_009_fluorine.glb"
   },
   {
     "number": 10,
@@ -396,7 +405,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Vial of Glowing Ultrapure neon. Original size in cm: 1 x 5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_010_neon/element_010_neon_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Neon_spectra.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Neon"
+    "source_url": "https://en.wikipedia.org/wiki/Neon",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_010_neon/element_010_neon.glb"
   },
   {
     "number": 11,
@@ -437,7 +447,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Na (Sodium) Metal",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_011_sodium/element_011_sodium_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Sodium_Spectra.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Sodium"
+    "source_url": "https://en.wikipedia.org/wiki/Sodium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_011_sodium/element_011_sodium.glb"
   },
   {
     "number": 12,
@@ -478,7 +489,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Magnesium crystals",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_012_magnesium/element_012_magnesium_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Magnesium_Spectra.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Magnesium"
+    "source_url": "https://en.wikipedia.org/wiki/Magnesium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_012_magnesium/element_012_magnesium.glb"
   },
   {
     "number": 13,
@@ -519,7 +531,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure aluminium foil. Original size in cm: 5 x 5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_013_aluminum/element_013_aluminum_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Aluminium"
+    "source_url": "https://en.wikipedia.org/wiki/Aluminium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_013_aluminum/element_013_aluminum.glb"
   },
   {
     "number": 14,
@@ -560,7 +573,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Chunk of Ultrapure Silicon, 2 x 2 cm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_014_silicon/element_014_silicon_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Silicon_Spectra.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Silicon"
+    "source_url": "https://en.wikipedia.org/wiki/Silicon",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_014_silicon/element_014_silicon.glb"
   },
   {
     "number": 15,
@@ -601,7 +615,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Purple Phosphorus",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_015_phosphorus/element_015_phosphorus_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Phosphorus"
+    "source_url": "https://en.wikipedia.org/wiki/Phosphorus",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_015_phosphorus/element_015_phosphorus.glb"
   },
   {
     "number": 16,
@@ -642,7 +657,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Native Sulfur From Russia",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_016_sulfur/element_016_sulfur_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Sulfur_Spectrum.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Sulfur"
+    "source_url": "https://en.wikipedia.org/wiki/Sulfur",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_016_sulfur/element_016_sulfur.glb"
   },
   {
     "number": 17,
@@ -683,7 +699,8 @@ window.ELEMENTS_DATA = [
     "image_title": "A Sample of Chlorine",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_017_chlorine/element_017_chlorine_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Chlorine_spectrum_visible.png",
-    "source_url": "https://en.wikipedia.org/wiki/Chlorine"
+    "source_url": "https://en.wikipedia.org/wiki/Chlorine",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_017_chlorine/element_017_chlorine.glb"
   },
   {
     "number": 18,
@@ -724,7 +741,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Vial of glowing ultrapure argon. Original size in cm: 1 x 5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_018_argon/element_018_argon_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Argon_Spectrum.png",
-    "source_url": "https://en.wikipedia.org/wiki/Argon"
+    "source_url": "https://en.wikipedia.org/wiki/Argon",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_018_argon/element_018_argon.glb"
   },
   {
     "number": 19,
@@ -766,7 +784,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Potassium Pieces",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_019_potassium/element_019_potassium_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Potassium_Spectrum.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Potassium"
+    "source_url": "https://en.wikipedia.org/wiki/Potassium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_019_potassium/element_019_potassium.glb"
   },
   {
     "number": 20,
@@ -808,7 +827,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Calcium Grains, grain size about 1 mm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_020_calcium/element_020_calcium_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Calcium_Spectrum.png",
-    "source_url": "https://en.wikipedia.org/wiki/Calcium"
+    "source_url": "https://en.wikipedia.org/wiki/Calcium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_020_calcium/element_020_calcium.glb"
   },
   {
     "number": 21,
@@ -850,7 +870,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Crystal of Scandium. About 1g",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_021_scandium/element_021_scandium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Scandium"
+    "source_url": "https://en.wikipedia.org/wiki/Scandium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_021_scandium/element_021_scandium.glb"
   },
   {
     "number": 22,
@@ -892,7 +913,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Titanium Crystal made with the van Arkel-de Booer Process. 87 grams, Original size in cm: 2.5 x 4",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_022_titanium/element_022_titanium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Titanium"
+    "source_url": "https://en.wikipedia.org/wiki/Titanium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_022_titanium/element_022_titanium.glb"
   },
   {
     "number": 23,
@@ -934,7 +956,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pieces of Pure Vanadium with Oxide Layer",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_023_vanadium/element_023_vanadium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Vanadium"
+    "source_url": "https://en.wikipedia.org/wiki/Vanadium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_023_vanadium/element_023_vanadium.glb"
   },
   {
     "number": 24,
@@ -976,7 +999,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Piece of Chromium Metal",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_024_chromium/element_024_chromium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Chromium"
+    "source_url": "https://en.wikipedia.org/wiki/Chromium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_024_chromium/element_024_chromium.glb"
   },
   {
     "number": 25,
@@ -1018,7 +1042,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Two Oieces of Manganese Metal",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_025_manganese/element_025_manganese_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Manganese"
+    "source_url": "https://en.wikipedia.org/wiki/Manganese",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_025_manganese/element_025_manganese.glb"
   },
   {
     "number": 26,
@@ -1060,7 +1085,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Fragments of an iron meteorite, about 92% iron. Original size of the single pieces in cm: 0.4 - 0.8",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_026_iron/element_026_iron_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Iron_Spectrum.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Iron"
+    "source_url": "https://en.wikipedia.org/wiki/Iron",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_026_iron/element_026_iron.glb"
   },
   {
     "number": 27,
@@ -1102,7 +1128,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Fractions from a cobalt, 7 and 4 grams. Original size in cm: 2 x 2",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_027_cobalt/element_027_cobalt_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Cobalt"
+    "source_url": "https://en.wikipedia.org/wiki/Cobalt",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_027_cobalt/element_027_cobalt.glb"
   },
   {
     "number": 28,
@@ -1144,7 +1171,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nickel Chunk",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_028_nickel/element_028_nickel_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Nickel"
+    "source_url": "https://en.wikipedia.org/wiki/Nickel",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_028_nickel/element_028_nickel.glb"
   },
   {
     "number": 29,
@@ -1186,7 +1214,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Macro of Native Copper about 1 ½ inches (4 cm) in size",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_029_copper/element_029_copper_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Copper"
+    "source_url": "https://en.wikipedia.org/wiki/Copper",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_029_copper/element_029_copper.glb"
   },
   {
     "number": 30,
@@ -1228,7 +1257,8 @@ window.ELEMENTS_DATA = [
     "image_title": "30 grams Zinc, front and back side. Original size in cm: 3",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_030_zinc/element_030_zinc_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Zinc"
+    "source_url": "https://en.wikipedia.org/wiki/Zinc",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_030_zinc/element_030_zinc.glb"
   },
   {
     "number": 31,
@@ -1270,7 +1300,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Solid gallium, fresh and after some time (2 months) at room temperature",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_031_gallium/element_031_gallium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Gallium"
+    "source_url": "https://en.wikipedia.org/wiki/Gallium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_031_gallium/element_031_gallium.glb"
   },
   {
     "number": 32,
@@ -1312,7 +1343,8 @@ window.ELEMENTS_DATA = [
     "image_title": "12 Grams Polycrystalline Germanium, 2*3 cm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_032_germanium/element_032_germanium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Germanium"
+    "source_url": "https://en.wikipedia.org/wiki/Germanium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_032_germanium/element_032_germanium.glb"
   },
   {
     "number": 33,
@@ -1354,7 +1386,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure Metallic Arsenic under Argon, 1 - 2 grams. Original size of each piece in cm: 0.5 x 1",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_033_arsenic/element_033_arsenic_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Arsenic"
+    "source_url": "https://en.wikipedia.org/wiki/Arsenic",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_033_arsenic/element_033_arsenic.glb"
   },
   {
     "number": 34,
@@ -1396,7 +1429,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure Black, Amorphous Selenium, 3 - 4 grams. Original size in cm: 2",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_034_selenium/element_034_selenium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Selenium"
+    "source_url": "https://en.wikipedia.org/wiki/Selenium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_034_selenium/element_034_selenium.glb"
   },
   {
     "number": 35,
@@ -1438,7 +1472,8 @@ window.ELEMENTS_DATA = [
     "image_title": "99.5 % pure liquid Bromine in a 4 x 1 cm big glass ampoule, cast in acrylic",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_035_bromine/element_035_bromine_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Bromine"
+    "source_url": "https://en.wikipedia.org/wiki/Bromine",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_035_bromine/element_035_bromine.glb"
   },
   {
     "number": 36,
@@ -1480,7 +1515,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Vial of Glowing Ultrapure Krypton. Original size in cm: 1 x 5.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_036_krypton/element_036_krypton_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Krypton_Spectrum.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Krypton"
+    "source_url": "https://en.wikipedia.org/wiki/Krypton",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_036_krypton/element_036_krypton.glb"
   },
   {
     "number": 37,
@@ -1523,7 +1559,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Rubidium Metal Sample",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_037_rubidium/element_037_rubidium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Rubidium"
+    "source_url": "https://en.wikipedia.org/wiki/Rubidium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_037_rubidium/element_037_rubidium.glb"
   },
   {
     "number": 38,
@@ -1566,7 +1603,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Strontium Pieces under Paraffin Oil.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_038_strontium/element_038_strontium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Strontium"
+    "source_url": "https://en.wikipedia.org/wiki/Strontium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_038_strontium/element_038_strontium.glb"
   },
   {
     "number": 39,
@@ -1609,7 +1647,8 @@ window.ELEMENTS_DATA = [
     "image_title": "6,21g Yttrium, Reinheit mindestens 99%.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_039_yttrium/element_039_yttrium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Yttrium"
+    "source_url": "https://en.wikipedia.org/wiki/Yttrium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_039_yttrium/element_039_yttrium.glb"
   },
   {
     "number": 40,
@@ -1652,7 +1691,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Two pieces of Zirconium, 1 cm each.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_040_zirconium/element_040_zirconium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Zirconium"
+    "source_url": "https://en.wikipedia.org/wiki/Zirconium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_040_zirconium/element_040_zirconium.glb"
   },
   {
     "number": 41,
@@ -1695,7 +1735,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Niobium strips",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_041_niobium/element_041_niobium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Niobium"
+    "source_url": "https://en.wikipedia.org/wiki/Niobium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_041_niobium/element_041_niobium.glb"
   },
   {
     "number": 42,
@@ -1738,7 +1779,8 @@ window.ELEMENTS_DATA = [
     "image_title": "99.9 Pure Molybdenum Crystal, about 2 x 3 cm, with anodisation color",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_042_molybdenum/element_042_molybdenum_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Molybdenum"
+    "source_url": "https://en.wikipedia.org/wiki/Molybdenum",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_042_molybdenum/element_042_molybdenum.glb"
   },
   {
     "number": 43,
@@ -1781,7 +1823,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Technetium Sample inside a sealed glass ampoule, filled with argon gas. 6x1 mm goldfoil covered with 99Tc powder (electroplated).",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_043_technetium/element_043_technetium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Technetium"
+    "source_url": "https://en.wikipedia.org/wiki/Technetium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_043_technetium/element_043_technetium.glb"
   },
   {
     "number": 44,
@@ -1824,7 +1867,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ruthenium Crystal, 0.6 grams, 0.6 x 1.3 cm size",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_044_ruthenium/element_044_ruthenium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Ruthenium"
+    "source_url": "https://en.wikipedia.org/wiki/Ruthenium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_044_ruthenium/element_044_ruthenium.glb"
   },
   {
     "number": 45,
@@ -1867,7 +1911,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure Rhodium Bead, 1 gram. Original size in cm: 0.5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_045_rhodium/element_045_rhodium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Rhodium"
+    "source_url": "https://en.wikipedia.org/wiki/Rhodium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_045_rhodium/element_045_rhodium.glb"
   },
   {
     "number": 46,
@@ -1909,7 +1954,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Palladium Crystal, about 1 gram. Original size in cm: 0.5 x 1",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_046_palladium/element_046_palladium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Palladium"
+    "source_url": "https://en.wikipedia.org/wiki/Palladium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_046_palladium/element_046_palladium.glb"
   },
   {
     "number": 47,
@@ -1952,7 +1998,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Natural silver nugget, 1 cm long.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_047_silver/element_047_silver_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Silver"
+    "source_url": "https://en.wikipedia.org/wiki/Silver",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_047_silver/element_047_silver.glb"
   },
   {
     "number": 48,
@@ -1995,7 +2042,8 @@ window.ELEMENTS_DATA = [
     "image_title": "48 Cd Cadmium",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_048_cadmium/element_048_cadmium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Cadmium"
+    "source_url": "https://en.wikipedia.org/wiki/Cadmium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_048_cadmium/element_048_cadmium.glb"
   },
   {
     "number": 49,
@@ -2038,7 +2086,8 @@ window.ELEMENTS_DATA = [
     "image_title": "1.5 x 1.5 cm liquid indium",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_049_indium/element_049_indium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Indium"
+    "source_url": "https://en.wikipedia.org/wiki/Indium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_049_indium/element_049_indium.glb"
   },
   {
     "number": 50,
@@ -2081,7 +2130,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Tin blob",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_050_tin/element_050_tin_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Tin"
+    "source_url": "https://en.wikipedia.org/wiki/Tin",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_050_tin/element_050_tin.glb"
   },
   {
     "number": 51,
@@ -2124,7 +2174,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Antimony crystal, 2 grams, 1 cm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_051_antimony/element_051_antimony_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Antimony"
+    "source_url": "https://en.wikipedia.org/wiki/Antimony",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_051_antimony/element_051_antimony.glb"
   },
   {
     "number": 52,
@@ -2167,7 +2218,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Metallic tellurium, diameter 3.5 cm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_052_tellurium/element_052_tellurium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Tellurium"
+    "source_url": "https://en.wikipedia.org/wiki/Tellurium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_052_tellurium/element_052_tellurium.glb"
   },
   {
     "number": 53,
@@ -2210,7 +2262,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Iodine Sample",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_053_iodine/element_053_iodine_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Iodine"
+    "source_url": "https://en.wikipedia.org/wiki/Iodine",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_053_iodine/element_053_iodine.glb"
   },
   {
     "number": 54,
@@ -2253,7 +2306,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Vial of glowing ultrapure xenon. Original size in cm: 1 x 5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_054_xenon/element_054_xenon_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Xenon_Spectrum.jpg",
-    "source_url": "https://en.wikipedia.org/wiki/Xenon"
+    "source_url": "https://en.wikipedia.org/wiki/Xenon",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_054_xenon/element_054_xenon.glb"
   },
   {
     "number": 55,
@@ -2297,7 +2351,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Cesium/Caesium metal",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_055_cesium/element_055_cesium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Cesium"
+    "source_url": "https://en.wikipedia.org/wiki/Cesium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_055_cesium/element_055_cesium.glb"
   },
   {
     "number": 56,
@@ -2341,7 +2396,8 @@ window.ELEMENTS_DATA = [
     "image_title": "1.5 Grams Barium with a Grey Oxide Layer under Argon. Original size in cm: 0.7 x 1",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_056_barium/element_056_barium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Barium"
+    "source_url": "https://en.wikipedia.org/wiki/Barium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_056_barium/element_056_barium.glb"
   },
   {
     "number": 57,
@@ -2385,7 +2441,8 @@ window.ELEMENTS_DATA = [
     "image_title": "1 cm Big Piece of Pure Lanthanum",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_057_lanthanum/element_057_lanthanum_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Lanthanum"
+    "source_url": "https://en.wikipedia.org/wiki/Lanthanum",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_057_lanthanum/element_057_lanthanum.glb"
   },
   {
     "number": 58,
@@ -2429,7 +2486,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure Cerium under Argon, 1.5 grams. Original size in cm: 1 x 1",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_058_cerium/element_058_cerium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Cerium"
+    "source_url": "https://en.wikipedia.org/wiki/Cerium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_058_cerium/element_058_cerium.glb"
   },
   {
     "number": 59,
@@ -2473,7 +2531,8 @@ window.ELEMENTS_DATA = [
     "image_title": "1.5 Grams Praseodymium under Argon, 0.5 cm big pieces",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_059_praseodymium/element_059_praseodymium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Praseodymium"
+    "source_url": "https://en.wikipedia.org/wiki/Praseodymium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_059_praseodymium/element_059_praseodymium.glb"
   },
   {
     "number": 60,
@@ -2517,7 +2576,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure Neodymium under Argon, 5 grams. Original length of the large piece in cm: 1",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_060_neodymium/element_060_neodymium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Neodymium"
+    "source_url": "https://en.wikipedia.org/wiki/Neodymium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_060_neodymium/element_060_neodymium.glb"
   },
   {
     "number": 61,
@@ -2561,7 +2621,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Photomontage of what promethium metal might look like (it is too radioactive and real images are not available)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_061_promethium/element_061_promethium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Promethium"
+    "source_url": "https://en.wikipedia.org/wiki/Promethium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_061_promethium/element_061_promethium.glb"
   },
   {
     "number": 62,
@@ -2605,7 +2666,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure Sublimated Samarium, 2 grams. Original size in cm: 0.8 x 1.5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_062_samarium/element_062_samarium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Samarium"
+    "source_url": "https://en.wikipedia.org/wiki/Samarium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_062_samarium/element_062_samarium.glb"
   },
   {
     "number": 63,
@@ -2649,7 +2711,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Weakly Oxidized Europium, hence slightly yellowish. 1.5 grams, large piece 0.6 x 1.6 cm.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_063_europium/element_063_europium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Europium"
+    "source_url": "https://en.wikipedia.org/wiki/Europium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_063_europium/element_063_europium.glb"
   },
   {
     "number": 64,
@@ -2693,7 +2756,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure (99.95%) Amorphous Gadolinium, about 12 grams, 2 × 1.5 × 0.5 cm, cast in acrylic glass",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_064_gadolinium/element_064_gadolinium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Gadolinium"
+    "source_url": "https://en.wikipedia.org/wiki/Gadolinium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_064_gadolinium/element_064_gadolinium.glb"
   },
   {
     "number": 65,
@@ -2737,7 +2801,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure Terbium, 3 grams. Original size: 1 cm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_065_terbium/element_065_terbium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Terbium"
+    "source_url": "https://en.wikipedia.org/wiki/Terbium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_065_terbium/element_065_terbium.glb"
   },
   {
     "number": 66,
@@ -2781,7 +2846,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure Dysprosium Dendrites",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_066_dysprosium/element_066_dysprosium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Dysprosium"
+    "source_url": "https://en.wikipedia.org/wiki/Dysprosium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_066_dysprosium/element_066_dysprosium.glb"
   },
   {
     "number": 67,
@@ -2825,7 +2891,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure Holmium, 17 grams. Original size in cm: 1.5 x 2.5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_067_holmium/element_067_holmium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Holmium"
+    "source_url": "https://en.wikipedia.org/wiki/Holmium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_067_holmium/element_067_holmium.glb"
   },
   {
     "number": 68,
@@ -2869,7 +2936,8 @@ window.ELEMENTS_DATA = [
     "image_title": "9.5 Gramms Pure Erbium, 2 x 2 cm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_068_erbium/element_068_erbium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Erbium"
+    "source_url": "https://en.wikipedia.org/wiki/Erbium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_068_erbium/element_068_erbium.glb"
   },
   {
     "number": 69,
@@ -2913,7 +2981,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure (99.997%) Crystalline Thulium, 22.3 grams, 3 × 3 × 2 cm in size",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_069_thulium/element_069_thulium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Thulium"
+    "source_url": "https://en.wikipedia.org/wiki/Thulium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_069_thulium/element_069_thulium.glb"
   },
   {
     "number": 70,
@@ -2957,7 +3026,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ytterbium, 0.5 x 1 cm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_070_ytterbium/element_070_ytterbium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Ytterbium"
+    "source_url": "https://en.wikipedia.org/wiki/Ytterbium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_070_ytterbium/element_070_ytterbium.glb"
   },
   {
     "number": 71,
@@ -3001,7 +3071,8 @@ window.ELEMENTS_DATA = [
     "image_title": "1 cm Big Piece of Pure Lutetium",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_071_lutetium/element_071_lutetium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Lutetium"
+    "source_url": "https://en.wikipedia.org/wiki/Lutetium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_071_lutetium/element_071_lutetium.glb"
   },
   {
     "number": 72,
@@ -3045,7 +3116,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Electrolytic Hafnium, 22 grams. Original size in cm: 1 x 2 x 3",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_072_hafnium/element_072_hafnium_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Hafnium_spectrum_visible.png",
-    "source_url": "https://en.wikipedia.org/wiki/Hafnium"
+    "source_url": "https://en.wikipedia.org/wiki/Hafnium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_072_hafnium/element_072_hafnium.glb"
   },
   {
     "number": 73,
@@ -3089,7 +3161,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Piece of tantalum, 1 cm in size",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_073_tantalum/element_073_tantalum_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Tantalum_spectrum_visible.png",
-    "source_url": "https://en.wikipedia.org/wiki/Tantalum"
+    "source_url": "https://en.wikipedia.org/wiki/Tantalum",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_073_tantalum/element_073_tantalum.glb"
   },
   {
     "number": 74,
@@ -3133,7 +3206,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Tungsten rod with oxidised surface, 80 grams. Original size in cm: 1.3 x 3",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_074_tungsten/element_074_tungsten_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Tungsten"
+    "source_url": "https://en.wikipedia.org/wiki/Tungsten",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_074_tungsten/element_074_tungsten.glb"
   },
   {
     "number": 75,
@@ -3177,7 +3251,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure Rhenium Bead, arc melted, 21 grams. Original size in cm: 1.5 x 1.7. Measured radiation dose <0.05 μS/h.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_075_rhenium/element_075_rhenium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Rhenium"
+    "source_url": "https://en.wikipedia.org/wiki/Rhenium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_075_rhenium/element_075_rhenium.glb"
   },
   {
     "number": 76,
@@ -3221,7 +3296,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pure Osmium Bead",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_076_osmium/element_076_osmium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Osmium"
+    "source_url": "https://en.wikipedia.org/wiki/Osmium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_076_osmium/element_076_osmium.glb"
   },
   {
     "number": 77,
@@ -3265,7 +3341,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Pieces of Pure Iridium, 1 gram. Original size: 0.1 - 0.3 cm each",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_077_iridium/element_077_iridium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Iridium"
+    "source_url": "https://en.wikipedia.org/wiki/Iridium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_077_iridium/element_077_iridium.glb"
   },
   {
     "number": 78,
@@ -3309,7 +3386,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Crystals of Pure Platinum grown by gas phase transport",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_078_platinum/element_078_platinum_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Platinum"
+    "source_url": "https://en.wikipedia.org/wiki/Platinum",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_078_platinum/element_078_platinum.glb"
   },
   {
     "number": 79,
@@ -3353,7 +3431,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure Gold Leaf",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_079_gold/element_079_gold_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Gold"
+    "source_url": "https://en.wikipedia.org/wiki/Gold",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_079_gold/element_079_gold.glb"
   },
   {
     "number": 80,
@@ -3397,7 +3476,8 @@ window.ELEMENTS_DATA = [
     "image_title": "6 grams pure mercury. Diameter of the inner disc: 2 cm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_080_mercury/element_080_mercury_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Mercury (Element)"
+    "source_url": "https://en.wikipedia.org/wiki/Mercury (Element)",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_080_mercury/element_080_mercury.glb"
   },
   {
     "number": 81,
@@ -3441,7 +3521,8 @@ window.ELEMENTS_DATA = [
     "image_title": "8 grams pure thallium under argon. Original size in cm: 0.7 x 1.5",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_081_thallium/element_081_thallium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Thallium"
+    "source_url": "https://en.wikipedia.org/wiki/Thallium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_081_thallium/element_081_thallium.glb"
   },
   {
     "number": 82,
@@ -3485,7 +3566,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Ultrapure Lead Bead from two sides. Original size in cm: 1.5 x 2",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_082_lead/element_082_lead_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Lead_(element)"
+    "source_url": "https://en.wikipedia.org/wiki/Lead_(element)",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_082_lead/element_082_lead.glb"
   },
   {
     "number": 83,
@@ -3529,7 +3611,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Bismuth Crystal",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_083_bismuth/element_083_bismuth_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Bismuth"
+    "source_url": "https://en.wikipedia.org/wiki/Bismuth",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_083_bismuth/element_083_bismuth.glb"
   },
   {
     "number": 84,
@@ -3573,7 +3656,8 @@ window.ELEMENTS_DATA = [
     "image_title": "This is only an illustration, not polonium itself. A silvery, radioactive metal, producing so much heat that it gets liquid and ionizes the surrounding air",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_084_polonium/element_084_polonium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Polonium"
+    "source_url": "https://en.wikipedia.org/wiki/Polonium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_084_polonium/element_084_polonium.glb"
   },
   {
     "number": 85,
@@ -3617,7 +3701,8 @@ window.ELEMENTS_DATA = [
     "image_title": "This is only an illustration, not astatine itself. Crystals similar to iodine, but darker in color than these, which due to the extreme radioactivity glow blue and evaporate to dark purple gas",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_085_astatine/element_085_astatine_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Astatine"
+    "source_url": "https://en.wikipedia.org/wiki/Astatine",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_085_astatine/element_085_astatine.glb"
   },
   {
     "number": 86,
@@ -3661,7 +3746,8 @@ window.ELEMENTS_DATA = [
     "image_title": "This is only an illustration, not radon itself. Radon is said to glow red in discharge tubes, although it practically is never used for this, due to its strong radioactivity.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_086_radon/element_086_radon_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Radon_spectrum.png",
-    "source_url": "https://en.wikipedia.org/wiki/Radon"
+    "source_url": "https://en.wikipedia.org/wiki/Radon",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_086_radon/element_086_radon.glb"
   },
   {
     "number": 87,
@@ -3706,7 +3792,8 @@ window.ELEMENTS_DATA = [
     "image_title": "This is only an illustration, not francium itself.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_087_francium/element_087_francium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Francium"
+    "source_url": "https://en.wikipedia.org/wiki/Francium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_087_francium/element_087_francium.glb"
   },
   {
     "number": 88,
@@ -3751,7 +3838,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Radium electroplated on a very small sample of copper foil and covered with polyurethane to prevent reaction with the air",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_088_radium/element_088_radium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Radium"
+    "source_url": "https://en.wikipedia.org/wiki/Radium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_088_radium/element_088_radium.glb"
   },
   {
     "number": 89,
@@ -3796,7 +3884,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Actinium-225 medical radioisotope held in a v-vial at ORNL. The blue glow comes from the ionization of surrounding air by alpha particles",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_089_actinium/element_089_actinium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Actinium"
+    "source_url": "https://en.wikipedia.org/wiki/Actinium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_089_actinium/element_089_actinium.glb"
   },
   {
     "number": 90,
@@ -3841,7 +3930,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Thorium Metal in Ampoule, corroded",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_090_thorium/element_090_thorium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Thorium"
+    "source_url": "https://en.wikipedia.org/wiki/Thorium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_090_thorium/element_090_thorium.glb"
   },
   {
     "number": 91,
@@ -3886,7 +3976,8 @@ window.ELEMENTS_DATA = [
     "image_title": "This sample of Protactinium-233 (dark circular area in the photo) was photographed in the light from its own radioactive emission (the lighter area) at the National Reactor Testing Station in Idaho.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_091_protactinium/element_091_protactinium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Protactinium"
+    "source_url": "https://en.wikipedia.org/wiki/Protactinium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_091_protactinium/element_091_protactinium.glb"
   },
   {
     "number": 92,
@@ -3931,7 +4022,8 @@ window.ELEMENTS_DATA = [
     "image_title": "A biscuit of uranium metal after reduction via the Ames Process. c.1943.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_092_uranium/element_092_uranium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Uranium"
+    "source_url": "https://en.wikipedia.org/wiki/Uranium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_092_uranium/element_092_uranium.glb"
   },
   {
     "number": 93,
@@ -3976,7 +4068,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Neptunium 237 sphere (6 kg)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_093_neptunium/element_093_neptunium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Neptunium"
+    "source_url": "https://en.wikipedia.org/wiki/Neptunium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_093_neptunium/element_093_neptunium.glb"
   },
   {
     "number": 94,
@@ -4021,7 +4114,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Plutonium Ring",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_094_plutonium/element_094_plutonium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Plutonium"
+    "source_url": "https://en.wikipedia.org/wiki/Plutonium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_094_plutonium/element_094_plutonium.glb"
   },
   {
     "number": 95,
@@ -4066,7 +4160,8 @@ window.ELEMENTS_DATA = [
     "image_title": "A small disc of Am-241 under the microscope.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_095_americium/element_095_americium_srp_th.png",
     "spectral_img": "https://en.wikipedia.org/wiki/File:Americium_spectrum_visible.png",
-    "source_url": "https://en.wikipedia.org/wiki/Americium"
+    "source_url": "https://en.wikipedia.org/wiki/Americium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_095_americium/element_095_americium.glb"
   },
   {
     "number": 96,
@@ -4111,7 +4206,8 @@ window.ELEMENTS_DATA = [
     "image_title": "A piece of curium, which emitts strong radiation that makes it glow",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_096_curium/element_096_curium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Curium"
+    "source_url": "https://en.wikipedia.org/wiki/Curium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_096_curium/element_096_curium.glb"
   },
   {
     "number": 97,
@@ -4156,7 +4252,8 @@ window.ELEMENTS_DATA = [
     "image_title": "It took 250 days to make enough berkelium, shown here (in dissolved state), to synthesize element 117",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_097_berkelium/element_097_berkelium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Berkelium"
+    "source_url": "https://en.wikipedia.org/wiki/Berkelium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_097_berkelium/element_097_berkelium.glb"
   },
   {
     "number": 98,
@@ -4201,7 +4298,8 @@ window.ELEMENTS_DATA = [
     "image_title": "A disc of californium metal (249Cf, 10 mg). The source implies that the disc has a diameter about twice the thickness of a typical pin, or on the order of 1 mm",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_098_californium/element_098_californium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Californium"
+    "source_url": "https://en.wikipedia.org/wiki/Californium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_098_californium/element_098_californium.glb"
   },
   {
     "number": 99,
@@ -4246,7 +4344,8 @@ window.ELEMENTS_DATA = [
     "image_title": "300 micrograms of Einsteinium 253, which has a half-life of 20 days.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_099_einsteinium/element_099_einsteinium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Einsteinium"
+    "source_url": "https://en.wikipedia.org/wiki/Einsteinium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_099_einsteinium/element_099_einsteinium.glb"
   },
   {
     "number": 100,
@@ -4291,7 +4390,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Fermium was first observed in the fallout from the Ivy Mike nuclear test.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_100_fermium/element_100_fermium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Fermium"
+    "source_url": "https://en.wikipedia.org/wiki/Fermium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_100_fermium/element_100_fermium.glb"
   },
   {
     "number": 101,
@@ -4336,7 +4436,8 @@ window.ELEMENTS_DATA = [
     "image_title": "This is only an illustration, not mendelevium itself. Chemically similar to Thulium, the highly radioactive heavy metal emits very energetic α-radiation.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_101_mendelevium/element_101_mendelevium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Mendelevium"
+    "source_url": "https://en.wikipedia.org/wiki/Mendelevium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_101_mendelevium/element_101_mendelevium.glb"
   },
   {
     "number": 102,
@@ -4381,7 +4482,8 @@ window.ELEMENTS_DATA = [
     "image_title": "This is only an illustration, not nobelium itself. Nobelium can only be made in very small amounts and emits strong radiation of various kinds.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_102_nobelium/element_102_nobelium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Nobelium"
+    "source_url": "https://en.wikipedia.org/wiki/Nobelium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_102_nobelium/element_102_nobelium.glb"
   },
   {
     "number": 103,
@@ -4426,7 +4528,8 @@ window.ELEMENTS_DATA = [
     "image_title": "This is only an illustration, not lawrencium itself. Lawrencium can only be made in very small amounts and emits strong radiation",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_103_lawrencium/element_103_lawrencium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Lawrencium"
+    "source_url": "https://en.wikipedia.org/wiki/Lawrencium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_103_lawrencium/element_103_lawrencium.glb"
   },
   {
     "number": 104,
@@ -4471,7 +4574,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Decay traces in a spark chamber, not of rutherfordium, but of a pion. This is a completely different, unrelated particle, but the decay of rutherfordium would make streaks there, too.",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_104_rutherfordium/element_104_rutherfordium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Rutherfordium"
+    "source_url": "https://en.wikipedia.org/wiki/Rutherfordium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_104_rutherfordium/element_104_rutherfordium.glb"
   },
   {
     "number": 105,
@@ -4516,7 +4620,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_105_dubnium/element_105_dubnium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Dubnium"
+    "source_url": "https://en.wikipedia.org/wiki/Dubnium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_105_dubnium/element_105_dubnium.glb"
   },
   {
     "number": 106,
@@ -4561,7 +4666,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_106_seaborgium/element_106_seaborgium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Seaborgium"
+    "source_url": "https://en.wikipedia.org/wiki/Seaborgium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_106_seaborgium/element_106_seaborgium.glb"
   },
   {
     "number": 107,
@@ -4606,7 +4712,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_107_bohrium/element_107_bohrium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Bohrium"
+    "source_url": "https://en.wikipedia.org/wiki/Bohrium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_107_bohrium/element_107_bohrium.glb"
   },
   {
     "number": 108,
@@ -4651,7 +4758,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_108_hassium/element_108_hassium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Hassium"
+    "source_url": "https://en.wikipedia.org/wiki/Hassium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_108_hassium/element_108_hassium.glb"
   },
   {
     "number": 109,
@@ -4696,7 +4804,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_109_meitnerium/element_109_meitnerium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Meitnerium"
+    "source_url": "https://en.wikipedia.org/wiki/Meitnerium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_109_meitnerium/element_109_meitnerium.glb"
   },
   {
     "number": 110,
@@ -4741,7 +4850,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_110_darmstadtium/element_110_darmstadtium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Darmstadtium"
+    "source_url": "https://en.wikipedia.org/wiki/Darmstadtium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_110_darmstadtium/element_110_darmstadtium.glb"
   },
   {
     "number": 111,
@@ -4786,7 +4896,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_111_roentgenium/element_111_roentgenium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Roentgenium"
+    "source_url": "https://en.wikipedia.org/wiki/Roentgenium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_111_roentgenium/element_111_roentgenium.glb"
   },
   {
     "number": 112,
@@ -4831,7 +4942,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_112_copernicium/element_112_copernicium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Copernicium"
+    "source_url": "https://en.wikipedia.org/wiki/Copernicium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_112_copernicium/element_112_copernicium.glb"
   },
   {
     "number": 113,
@@ -4876,7 +4988,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_113_nihonium/element_113_nihonium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Ununtrium"
+    "source_url": "https://en.wikipedia.org/wiki/Ununtrium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_113_nihonium/element_113_nihonium.glb"
   },
   {
     "number": 114,
@@ -4921,7 +5034,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_114_flerovium/element_114_flerovium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Flerovium"
+    "source_url": "https://en.wikipedia.org/wiki/Flerovium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_114_flerovium/element_114_flerovium.glb"
   },
   {
     "number": 115,
@@ -4966,7 +5080,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_115_moscovium/element_115_moscovium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Ununpentium"
+    "source_url": "https://en.wikipedia.org/wiki/Ununpentium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_115_moscovium/element_115_moscovium.glb"
   },
   {
     "number": 116,
@@ -5011,7 +5126,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_116_livermorium/element_116_livermorium_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Livermorium"
+    "source_url": "https://en.wikipedia.org/wiki/Livermorium",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_116_livermorium/element_116_livermorium.glb"
   },
   {
     "number": 117,
@@ -5056,7 +5172,8 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_117_tennessine/element_117_tennessine_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Tennessine"
+    "source_url": "https://en.wikipedia.org/wiki/Tennessine",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_117_tennessine/element_117_tennessine.glb"
   },
   {
     "number": 118,
@@ -5101,6 +5218,7 @@ window.ELEMENTS_DATA = [
     "image_title": "Nguyên tố tổng hợp hạt nhân trong máy gia tốc (Chu kỳ 7)",
     "bohr_model_image": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_118_oganesson/element_118_oganesson_srp_th.png",
     "spectral_img": null,
-    "source_url": "https://en.wikipedia.org/wiki/Oganesson"
+    "source_url": "https://en.wikipedia.org/wiki/Oganesson",
+    "model_3d_url": "https://storage.googleapis.com/search-ar-edu/periodic-table/element_118_oganesson/element_118_oganesson.glb"
   }
 ];
