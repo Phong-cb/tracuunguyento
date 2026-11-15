@@ -65,15 +65,15 @@
   // Tạo chuỗi nội dung mã hóa vào QR của từng nguyên tố
   function buildQRPayload(el, mode = state.qrPayloadMode) {
     if (mode === "wiki") {
-      return el.source_url || `https://vi.wikipedia.org/wiki/${encodeURIComponent(el.name_vi)}`;
+      return el.source_url || `https://en.wikipedia.org/wiki/${encodeURIComponent(el.name_en)}`;
     }
     if (mode === "info") {
       return [
-        `#${el.number} ${el.name_vi} (${el.symbol} - ${el.name_en})`,
-        `Nhom: ${el.category_vi}`,
-        `Nguyen tu khoi: ${el.atomic_mass} u`,
-        `Cau hinh e: ${el.electron_configuration_semantic || el.electron_configuration}`,
-        `Trang thai (25C): ${el.phase_vi}`
+        `#${el.number} (${el.name_en}) [${el.symbol}]`,
+        `Nhóm: ${el.category_vi}`,
+        `Nguyên tử khối: ${el.atomic_mass} u`,
+        `Cấu hình e: ${el.electron_configuration_semantic || el.electron_configuration}`,
+        `Trạng thái (25°C): ${el.phase_vi}`
       ].join("\n");
     }
     let baseUrl =
@@ -148,11 +148,11 @@
 
     ctx.fillStyle = "#ffffff";
     ctx.font = "bold 44px sans-serif";
-    ctx.fillText(`${el.name_vi} (${el.symbol})`, 44, 122);
+    ctx.fillText(`(${el.name_en})`, 44, 122);
 
     ctx.fillStyle = "#94a3b8";
     ctx.font = "22px sans-serif";
-    ctx.fillText(`${el.name_en} • ${el.category_vi}`, 44, 158);
+    ctx.fillText(`${el.symbol} • ${el.category_vi}`, 44, 158);
 
     const qrBoxSize = 390;
     const qrX = (canvas.width - qrBoxSize) / 2;
@@ -198,7 +198,7 @@
     ctx.fillText("Quét mã QR để tra cứu chi tiết nguyên tố hóa học", canvas.width / 2, 680);
 
     const link = document.createElement("a");
-    link.download = `QR_${el.number}_${el.symbol}_${normalizeVi(el.name_vi).replace(/\s+/g, "_")}.png`;
+    link.download = `QR_${el.number}_${el.symbol}_${el.name_en.replace(/\s+/g, "_")}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
   }
@@ -233,7 +233,7 @@
       <text x="24" y="42" fill="rgba(255,255,255,0.75)" font-family="monospace" font-size="20" font-weight="bold">Z = ${el.number}</text>
       <text x="376" y="42" fill="${color}" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="end">${el.category_vi}</text>
       <text x="200" y="158" fill="#070b17" font-family="sans-serif" font-size="34" font-weight="900" text-anchor="middle">${el.symbol}</text>
-      <text x="200" y="248" fill="#ffffff" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">${el.name_vi} (${el.name_en})</text>
+      <text x="200" y="248" fill="#ffffff" font-family="sans-serif" font-size="22" font-weight="bold" text-anchor="middle">(${el.name_en})</text>
       <text x="200" y="274" fill="#94a3b8" font-family="monospace" font-size="13" text-anchor="middle">Lớp vỏ e⁻: ${shells}</text>
     </svg>`;
     return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
@@ -351,7 +351,7 @@
     });
 
     return `
-      <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-label="Mô hình nguyên tử Bohr của ${el.name_vi}">
+      <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-label="Mô hình nguyên tử Bohr của ${el.name_en}">
         <g class="bohr-svg-spin" style="transform-origin: ${center}px ${center}px">
           ${ringsSvg}
         </g>
@@ -425,8 +425,8 @@
 
     spot.style.setProperty("--spot-color", color);
     spot.innerHTML = `
-      <div class="spotlight-photo-box" id="spotlightPhotoClick" title="Nhấn để phóng to chi tiết ${el.name_vi}">
-        <img src="${imgSrc}" alt="Hình ảnh nguyên tố ${el.name_vi}" onerror="this.onerror=null;this.src='${fallbackUri}';" />
+      <div class="spotlight-photo-box" id="spotlightPhotoClick" title="Nhấn để phóng to chi tiết ${el.name_en}">
+        <img src="${imgSrc}" alt="Hình ảnh nguyên tố ${el.name_en}" onerror="this.onerror=null;this.src='${fallbackUri}';" />
         <div class="spotlight-photo-tag">#${el.number} • ${el.category_vi}</div>
       </div>
 
@@ -434,8 +434,7 @@
         <div class="spotlight-top-row">
           <span class="spotlight-symbol">${el.symbol}</span>
           <div class="spotlight-names">
-            <h2>${el.name_vi}</h2>
-            <span>(${el.name_en})</span>
+            <h2>${el.name_en}</h2>
           </div>
         </div>
         <p class="spotlight-desc">${el.summary_vi}</p>
@@ -462,7 +461,7 @@
       <div class="spotlight-bohr-preview">
         <div class="spotlight-side-visuals">
           ${renderBohrSVG(el, 96)}
-          <div class="spotlight-qr-mini" id="spotlightQRClick" title="Mã QR của ${el.name_vi} — Nhấn để phóng to hoặc tải về">
+          <div class="spotlight-qr-mini" id="spotlightQRClick" title="Mã QR của ${el.name_en} — Nhấn để phóng to hoặc tải về">
             ${qrSvg}
           </div>
         </div>
@@ -654,7 +653,7 @@
       tile.style.setProperty("--el-color", color);
       tile.setAttribute("data-number", String(el.number));
       tile.setAttribute("tabindex", "0");
-      tile.setAttribute("aria-label", `${el.number}. ${el.name_vi} (${el.symbol}) - Chu kỳ ${el.period}, Nhóm ${el.group}`);
+      tile.setAttribute("aria-label", `${el.number}. ${el.name_en} (${el.symbol}) - Chu kỳ ${el.period}, Nhóm ${el.group}`);
 
       tile.innerHTML = `
         <img class="el-tile-bg-img" src="${imgSrc}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${fallbackUri}';" />
@@ -664,7 +663,7 @@
         </div>
         <div class="el-tile-symbol">${el.symbol}</div>
         <div class="el-tile-bottom">
-          <span class="el-tile-name">${el.name_vi}</span>
+          <span class="el-tile-name">${el.name_en}</span>
           <span class="el-tile-mass">${el.atomic_mass}</span>
         </div>
       `;
@@ -712,7 +711,7 @@
                   <strong>${el.symbol}</strong>
                 </div>
                 <div class="compact-el-info">
-                  <h4>${el.name_vi}</h4>
+                  <h4>${el.name_en}</h4>
                   <p>${el.atomic_mass} u • ${el.phase_vi}</p>
                 </div>
               </article>
@@ -758,8 +757,9 @@
           return (b.density || -1) - (a.density || -1);
         case "melt-desc":
           return (b.melt || -1) - (a.melt || -1);
+        case "name-en":
         case "name-vi":
-          return a.name_vi.localeCompare(b.name_vi, "vi");
+          return a.name_en.localeCompare(b.name_en, "en");
         default:
           return a.number - b.number;
       }
@@ -784,15 +784,14 @@
         return `
           <article class="gallery-card" data-number="${el.number}" style="--el-color: ${color}">
             <div class="gallery-img-wrap">
-              <img src="${imgSrc}" alt="Mẫu vật nguyên tố ${el.name_vi}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackUri}';" />
+              <img src="${imgSrc}" alt="Mẫu vật nguyên tố ${el.name_en}" loading="lazy" onerror="this.onerror=null;this.src='${fallbackUri}';" />
               <span class="gallery-badge-num">#${el.number}</span>
-              <div class="gallery-qr-badge" title="Mã QR của nguyên tố ${el.name_vi}">${qrSvg}</div>
+              <div class="gallery-qr-badge" title="Mã QR của nguyên tố ${el.name_en}">${qrSvg}</div>
               <div class="gallery-badge-symbol">${el.symbol}</div>
             </div>
             <div class="gallery-card-body">
               <div class="gallery-card-title">
-                <h3>${el.name_vi}</h3>
-                <span>${el.name_en}</span>
+                <h3>${el.name_en}</h3>
               </div>
               <span class="gallery-cat-tag">${el.category_vi}</span>
               <p class="gallery-card-desc">${el.summary_vi}</p>
@@ -831,7 +830,7 @@
       sel.innerHTML = scoped
         .map(
           (el) =>
-            `<option value="${el.number}" ${el.number === targetNum ? "selected" : ""}>#${el.number} — ${el.name_vi} (${el.symbol})</option>`
+            `<option value="${el.number}" ${el.number === targetNum ? "selected" : ""}>#${el.number} — ${el.name_en} (${el.symbol})</option>`
         )
         .join("");
 
@@ -859,13 +858,12 @@
         return `
           <article class="compare-card glass-panel" style="--el-color: ${color}">
             <div class="compare-card-top">
-              <img src="${imgSrc}" alt="${el.name_vi}" onerror="this.onerror=null;this.src='${fallbackUri}';" />
+              <img src="${imgSrc}" alt="${el.name_en}" onerror="this.onerror=null;this.src='${fallbackUri}';" />
               <div style="flex:1; min-width:0;">
                 <span class="gallery-cat-tag">${el.category_vi}</span>
-                <h3 style="font-size: 1.25rem; margin-top: 4px;">#${el.number} ${el.name_vi} (${el.symbol})</h3>
-                <p style="font-size: 0.8rem; color: var(--text-muted);">${el.name_en}</p>
+                <h3 style="font-size: 1.25rem; margin-top: 4px;">#${el.number} ${el.name_en} (${el.symbol})</h3>
               </div>
-              <div class="spotlight-qr-mini" style="width:64px; height:64px; --spot-color:${color}" title="Mã QR của ${el.name_vi}">
+              <div class="spotlight-qr-mini" style="width:64px; height:64px; --spot-color:${color}" title="Mã QR của ${el.name_en}">
                 ${qrSvg}
               </div>
             </div>
@@ -921,13 +919,12 @@
               <span class="qr-card-sym">${el.symbol}</span>
             </div>
 
-            <div class="qr-code-frame" data-open-modal="${el.number}" title="Quét mã QR hoặc nhấn để mở hồ sơ ${el.name_vi}">
+            <div class="qr-code-frame" data-open-modal="${el.number}" title="Quét mã QR hoặc nhấn để mở hồ sơ ${el.name_en}">
               ${qrSvg}
             </div>
 
             <div class="qr-card-title">
-              <h3>${el.name_vi}</h3>
-              <span>${el.name_en}</span>
+              <h3>${el.name_en}</h3>
             </div>
 
             <div class="qr-card-meta">
@@ -1334,8 +1331,8 @@
       }
       if (mv.getAttribute("src") !== src) {
         loading.hidden = false;
-        loadingText.textContent = `Đang tải mô hình 3D của ${el.name_vi}...`;
-        mv.setAttribute("alt", `Mô hình 3D của nguyên tố ${el.name_vi} (${el.symbol})`);
+        loadingText.textContent = `Đang tải mô hình 3D của ${el.name_en}...`;
+        mv.setAttribute("alt", `Mô hình 3D của nguyên tố ${el.name_en} (${el.symbol})`);
         mv.setAttribute("src", src);
       }
     } else {
@@ -1366,8 +1363,8 @@
         <div class="m3d-info-sym"><small>#${Z}</small><strong>${el.symbol}</strong></div>
         <div style="min-width:0">
           <span class="gallery-cat-tag" style="--el-color:${color}">${el.category_vi}</span>
-          <h2>${el.name_vi}</h2>
-          <p>${el.name_en} • ${el.atomic_mass} u</p>
+          <h2>${el.name_en}</h2>
+          <p>${el.atomic_mass} u</p>
         </div>
       </div>
 
@@ -1391,7 +1388,7 @@
       </div>
 
       <div style="display:flex; align-items:center; gap:12px;">
-        <div class="spotlight-qr-mini" style="--spot-color:${color}; width:72px; height:72px;" title="Mã QR của ${el.name_vi}">${qrSvg}</div>
+        <div class="spotlight-qr-mini" style="--spot-color:${color}; width:72px; height:72px;" title="Mã QR của ${el.name_en}">${qrSvg}</div>
         <p style="font-size:0.76rem; color: var(--text-muted);">Mô hình hiển thị cấu trúc nguyên tử Bohr: hạt nhân gồm proton (đỏ) và nơtron (xanh), các electron chuyển động trên ${
           (el.shells || []).length
         } lớp vỏ.</p>
@@ -1424,8 +1421,8 @@
       .map((el) => {
         const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
         const active = el.number === state.model3dNumber ? "active" : "";
-        return `<button type="button" class="m3d-pick ${active}" data-m3d-num="${el.number}" style="--el-color:${color}" title="${el.name_vi} (${el.symbol})">
-          <small>${el.number}</small><strong>${el.symbol}</strong><span>${el.name_vi}</span>
+        return `<button type="button" class="m3d-pick ${active}" data-m3d-num="${el.number}" style="--el-color:${color}" title="${el.name_en} (${el.symbol})">
+          <small>${el.number}</small><strong>${el.symbol}</strong><span>${el.name_en}</span>
         </button>`;
       })
       .join("");
@@ -1536,8 +1533,8 @@
     const prevEl = ALL_ELEMENTS.find((e) => e.number === prevNum);
     const nextEl = ALL_ELEMENTS.find((e) => e.number === nextNum);
 
-    document.getElementById("prevElementLabel").textContent = `#${prevEl.number} ${prevEl.name_vi}`;
-    document.getElementById("nextElementLabel").textContent = `#${nextEl.number} ${nextEl.name_vi}`;
+    document.getElementById("prevElementLabel").textContent = `#${prevEl.number} (${prevEl.name_en})`;
+    document.getElementById("nextElementLabel").textContent = `#${nextEl.number} (${nextEl.name_en})`;
     document.getElementById("prevElementBtn").onclick = () => openElementModal(prevNum);
     document.getElementById("nextElementBtn").onclick = () => openElementModal(nextNum);
 
@@ -1550,9 +1547,9 @@
     body.innerHTML = `
       <div class="modal-hero-grid" style="--el-color: ${color}">
         <div class="modal-photo-card">
-          <img src="${imgSrc}" alt="Hình ảnh thực tế của nguyên tố ${el.name_vi}" onerror="this.onerror=null;this.src='${fallbackUri}';" />
+          <img src="${imgSrc}" alt="Hình ảnh thực tế của nguyên tố ${el.name_en}" onerror="this.onerror=null;this.src='${fallbackUri}';" />
           <div class="modal-photo-caption">
-            <strong>Hình ảnh mẫu vật:</strong> ${el.image_title || el.name_vi}
+            <strong>Hình ảnh mẫu vật:</strong> ${el.image_title || el.name_en}
           </div>
         </div>
 
@@ -1561,8 +1558,8 @@
             <div class="modal-big-symbol">${el.symbol}</div>
             <div>
               <span style="font-family: var(--font-mono); color: ${color}; font-size: 0.84rem; font-weight: 700;">SỐ HIỆU NGUYÊN TỬ #${el.number}</span>
-              <h2 id="modalElementTitle" style="font-size: clamp(1.35rem, 2vw, 1.85rem); font-weight: 800; line-height: 1.15;">
-                ${el.name_vi} <span style="font-weight: 400; color: var(--text-muted); font-size: 1.1rem;">(${el.name_en})</span>
+              <h2 id="modalElementTitle" style="font-size: clamp(1.4rem, 2.2vw, 2.1rem); font-weight: 800; line-height: 1.15; color: #ffffff;">
+                <strong>(${el.name_en})</strong>
               </h2>
             </div>
           </div>

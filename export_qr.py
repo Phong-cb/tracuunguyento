@@ -176,7 +176,8 @@ def main():
         header_sym_text = f"#{num}  {sym}"
         draw.text((24, 22), header_sym_text, fill=theme_color, font=font_title)
 
-        name_text = f"{el['name_vi']} ({el['name_en']})"
+        # Tên nguyên tố: chỉ hiển thị tên Tiếng Anh, in đậm và nằm trong ngoặc
+        name_text = f"({el['name_en']})"
         draw.text((24, 62), name_text, fill="#0f172a", font=font_bold)
 
         cat_text = el['category_vi']
