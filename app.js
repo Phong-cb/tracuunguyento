@@ -224,6 +224,375 @@
     link.click();
   }
 
+  // Bộ nhớ đệm ảnh Bảng Tuần Hoàn 118 QR chất lượng cao theo chế độ payload
+  let qrPosterCache = { mode: null, dataUrl: null };
+
+  function drawRoundedRectPath(ctx, x, y, w, h, r) {
+    const radius = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + w - radius, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
+    ctx.lineTo(x + w, y + h - radius);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
+    ctx.lineTo(x + radius, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+  }
+
+  // Kết xuất ảnh Bảng Tuần Hoàn 118 Nguyên Tố Mã QR chuẩn in 1 trang (4961 × 3508 px - A3 300 DPI)
+  // Mỗi ô chỉ chứa: Kí hiệu nguyên tố, Khối lượng nguyên tử và Mã QR kích thước lớn dễ quét
+  function generate118QRPosterDataURL() {
+    const mode = state.qrPayloadMode;
+    if (qrPosterCache.mode === mode && qrPosterCache.dataUrl) {
+      return qrPosterCache.dataUrl;
+    }
+
+    const W = 4961;
+    const H = 3508;
+    const canvas = document.createElement("canvas");
+    canvas.width = W;
+    canvas.height = H;
+    const ctx = canvas.getContext("2d");
+
+    // Nền trắng tinh khiết tối ưu in ấn & độ tương phản mã QR
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, W, H);
+
+    const padX = 95;
+    const topHeaderH = 200;
+    const bottomY = 65;
+    const cols = 18;
+    const gapX = 12;
+    const gapY = 12;
+    const periodColW = 108;
+    const groupRowH = 82;
+    const fBlockExtraGap = 46;
+
+    const cellW = Math.floor((W - padX * 2 - periodColW - gapX - (cols - 1) * gapX) / cols); // ~245px
+    const usableH = H - topHeaderH - groupRowH - gapY - bottomY - fBlockExtraGap - 8 * gapY;
+    const cellH = Math.floor(usableH / 9); // ~332px
+    const totalGridW = periodColW + gapX + cols * cellW + (cols - 1) * gapX;
+    const gridLeftX = Math.floor((W - totalGridW) / 2);
+    const elementsStartX = gridLeftX + periodColW + gapX;
+    const elementsStartY = topHeaderH + groupRowH + gapY;
+
+    // 1. Tiêu đề chính & Dòng chữ STEM ở dưới
+    ctx.fillStyle = "#0f172a";
+    ctx.font = "800 66px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("BẢNG TUẦN HOÀN HÓA HỌC", W / 2, 82);
+
+    ctx.fillStyle = "#0284c7";
+    ctx.font = "700 30px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
+    ctx.fillText("Sản phẩm STEM của lớp 10A2 THPT CHU VĂN AN 2026-2027", W / 2, 128);
+
+    // Chú thích màu nhóm căn giữa gọn đẹp phía dưới dòng STEM
+    const legendItems = [
+      { label: "Kim loại kiềm", color: CATEGORY_COLORS["alkali-metal"] },
+      { label: "Kiềm thổ", color: CATEGORY_COLORS["alkaline-earth"] },
+      { label: "Chuyển tiếp", color: CATEGORY_COLORS["transition-metal"] },
+      { label: "Hậu C.tiếp", color: CATEGORY_COLORS["post-transition"] },
+      { label: "Á kim", color: CATEGORY_COLORS["metalloid"] },
+      { label: "Phi kim", color: CATEGORY_COLORS["nonmetal"] },
+      { label: "Halogen", color: CATEGORY_COLORS["halogen"] },
+      { label: "Khí hiếm", color: CATEGORY_COLORS["noble-gas"] },
+      { label: "Lantan", color: CATEGORY_COLORS["lanthanide"] },
+      { label: "Actini", color: CATEGORY_COLORS["actinide"] }
+    ];
+    ctx.font = "600 21px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
+    ctx.textAlign = "left";
+    let totalLegendW = 0;
+    legendItems.forEach((item, idx) => {
+      totalLegendW += 22 + ctx.measureText(item.label).width + (idx < legendItems.length - 1 ? 30 : 0);
+    });
+    let lx = Math.floor((W - totalLegendW) / 2);
+    const ly = 172;
+    legendItems.forEach((item) => {
+      ctx.fillStyle = item.color;
+      drawRoundedRectPath(ctx, lx, ly - 17, 16, 16, 4);
+      ctx.fill();
+      lx += 22;
+      ctx.fillStyle = "#334155";
+      ctx.fillText(item.label, lx, ly);
+      lx += ctx.measureText(item.label).width + 30;
+    });
+
+    // Đường kẻ mảnh phân cách header
+    ctx.strokeStyle = "#cbd5e1";
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(gridLeftX, 188);
+    ctx.lineTo(gridLeftX + totalGridW, 188);
+    ctx.stroke();
+
+    // Tính tọa độ Y cho từng ypos (1..7, 9, 10)
+    function getRowY(ypos) {
+      if (ypos <= 7) {
+        return elementsStartY + (ypos - 1) * (cellH + gapY);
+      }
+      // ypos 9 và 10 (Họ Lantan & Họ Actini)
+      return elementsStartY + 7 * (cellH + gapY) + fBlockExtraGap + (ypos - 9) * (cellH + gapY);
+    }
+
+    // 2. Ô góc trên-trái (CK \ Nhóm)
+    ctx.save();
+    drawRoundedRectPath(ctx, gridLeftX, topHeaderH, periodColW, groupRowH, 12);
+    ctx.fillStyle = "#f1f5f9";
+    ctx.fill();
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.fillStyle = "#334155";
+    ctx.textAlign = "center";
+    ctx.font = "800 20px 'JetBrains Mono', monospace";
+    ctx.fillText("CK \\ Nhóm", gridLeftX + periodColW / 2, topHeaderH + groupRowH / 2 + 7);
+
+    // 3. Hàng Nhóm (1..18 kèm ký hiệu La Mã IA..VIIIA)
+    for (let g = 1; g <= 18; g++) {
+      const gx = elementsStartX + (g - 1) * (cellW + gapX);
+      const gy = topHeaderH;
+
+      ctx.save();
+      drawRoundedRectPath(ctx, gx, gy, cellW, groupRowH, 12);
+      ctx.fillStyle = "#f8fafc";
+      ctx.fill();
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = "#0f172a";
+      ctx.textAlign = "center";
+      ctx.font = "800 28px 'JetBrains Mono', monospace";
+      ctx.fillText(String(g), gx + cellW / 2, gy + 36);
+
+      ctx.fillStyle = "#0284c7";
+      ctx.font = "700 22px 'Be Vietnam Pro', Arial, sans-serif";
+      ctx.fillText(ROMAN_GROUPS[g - 1], gx + cellW / 2, gy + 66);
+    }
+
+    // 4. Cột Chu kì (1..7 + La–Lu, Ac–Lr)
+    const periodRows = [
+      { ypos: 1, label: "1", sub: "Chu kì" },
+      { ypos: 2, label: "2", sub: "Chu kì" },
+      { ypos: 3, label: "3", sub: "Chu kì" },
+      { ypos: 4, label: "4", sub: "Chu kì" },
+      { ypos: 5, label: "5", sub: "Chu kì" },
+      { ypos: 6, label: "6", sub: "Chu kì" },
+      { ypos: 7, label: "7", sub: "Chu kì" },
+      { ypos: 9, label: "La–Lu", sub: "CK 6", color: CATEGORY_COLORS["lanthanide"] },
+      { ypos: 10, label: "Ac–Lr", sub: "CK 7", color: CATEGORY_COLORS["actinide"] }
+    ];
+    periodRows.forEach((pr) => {
+      const py = getRowY(pr.ypos);
+      ctx.save();
+      drawRoundedRectPath(ctx, gridLeftX, py, periodColW, cellH, 12);
+      ctx.fillStyle = "#f8fafc";
+      ctx.fill();
+      ctx.strokeStyle = pr.color || "#cbd5e1";
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.textAlign = "center";
+      ctx.fillStyle = pr.color || "#0f172a";
+      ctx.font = pr.label.length > 2
+        ? "800 24px 'JetBrains Mono', monospace"
+        : "800 38px 'JetBrains Mono', monospace";
+      ctx.fillText(pr.label, gridLeftX + periodColW / 2, py + cellH / 2 + 4);
+
+      ctx.fillStyle = "#64748b";
+      ctx.font = "700 18px 'Be Vietnam Pro', Arial, sans-serif";
+      ctx.fillText(pr.sub, gridLeftX + periodColW / 2, py + cellH / 2 + 34);
+    });
+
+    // Ô đánh dấu vị trí Lantan & Actini tại cột 3 hàng 6, 7
+    [
+      { row: 6, label: "57–71", sub: "Lantan", color: CATEGORY_COLORS["lanthanide"] },
+      { row: 7, label: "89–103", sub: "Actini", color: CATEGORY_COLORS["actinide"] }
+    ].forEach((slot) => {
+      const sx = elementsStartX + 2 * (cellW + gapX);
+      const sy = getRowY(slot.row);
+      ctx.save();
+      drawRoundedRectPath(ctx, sx, sy, cellW, cellH, 14);
+      ctx.fillStyle = "#f8fafc";
+      ctx.fill();
+      ctx.setLineDash([8, 6]);
+      ctx.strokeStyle = slot.color;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.fillStyle = slot.color;
+      ctx.textAlign = "center";
+      ctx.font = "800 32px 'JetBrains Mono', monospace";
+      ctx.fillText(slot.label, sx + cellW / 2, sy + cellH / 2 - 8);
+      ctx.font = "700 24px 'Be Vietnam Pro', Arial, sans-serif";
+      ctx.fillText(`↓ ${slot.sub}`, sx + cellW / 2, sy + cellH / 2 + 34);
+    });
+
+    // Vẽ đầy đủ 118 nguyên tố (Kí hiệu + Khối lượng nguyên tử + Mã QR lớn)
+    const elements118 = ALL_ELEMENTS.filter((el) => el.number <= 118);
+    ctx.imageSmoothingEnabled = false;
+
+    elements118.forEach((el) => {
+      const x = elementsStartX + (el.xpos - 1) * (cellW + gapX);
+      const y = getRowY(el.ypos);
+      const color = CATEGORY_COLORS[el.category_id] || "#0284c7";
+
+      // Khung ô nguyên tố
+      ctx.save();
+      drawRoundedRectPath(ctx, x, y, cellW, cellH, 14);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.clip();
+
+      // Dải màu nhấn mảnh ở đỉnh ô theo nhóm nguyên tố
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y, cellW, 9);
+      ctx.restore();
+
+      // Viền ô sắc nét
+      drawRoundedRectPath(ctx, x, y, cellW, cellH, 14);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.6;
+      ctx.stroke();
+
+      // Hàng trên gọn (chiếm ~19% chiều cao): Kí hiệu (trái) & Khối lượng nguyên tử (phải)
+      const headerBaseY = y + 52;
+      ctx.fillStyle = "#0f172a";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "alphabetic";
+      ctx.font = "800 40px 'Space Grotesk', 'Segoe UI', Arial, sans-serif";
+      ctx.fillText(el.symbol, x + 13, headerBaseY, 92);
+
+      const massStr =
+        typeof el.atomic_mass === "number"
+          ? Number.isInteger(el.atomic_mass)
+            ? String(el.atomic_mass)
+            : Number(el.atomic_mass.toPrecision(6)).toString()
+          : String(el.atomic_mass);
+      ctx.fillStyle = "#334155";
+      ctx.textAlign = "right";
+      ctx.font = massStr.length > 6
+        ? "700 19px 'JetBrains Mono', Consolas, monospace"
+        : "700 22px 'JetBrains Mono', Consolas, monospace";
+      ctx.fillText(massStr, x + cellW - 12, headerBaseY - 4, cellW - 108);
+
+      // Không gian Mã QR lớn (~77% chiều cao ô, canh giữa phía dưới)
+      const qrBoxSize = Math.min(cellW - 16, cellH - 72); // ~234 × 234 px
+      const qrBoxX = x + Math.floor((cellW - qrBoxSize) / 2);
+      const qrBoxY = y + 64 + Math.floor((cellH - 64 - 10 - qrBoxSize) / 2);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize);
+
+      const payload = buildQRPayload(el, mode);
+      if (typeof window.qrcode === "function") {
+        try {
+          const qr = window.qrcode(0, "M");
+          qr.addData(unescape(encodeURIComponent(payload)), "Byte");
+          qr.make();
+          const count = qr.getModuleCount();
+          const quietZone = 8;
+          const drawArea = qrBoxSize - quietZone * 2;
+          const modSize = Math.floor(drawArea / count);
+          const actualQrPx = modSize * count;
+          const ox = qrBoxX + Math.floor((qrBoxSize - actualQrPx) / 2);
+          const oy = qrBoxY + Math.floor((qrBoxSize - actualQrPx) / 2);
+
+          ctx.fillStyle = "#000000";
+          for (let r = 0; r < count; r++) {
+            for (let c = 0; c < count; c++) {
+              if (qr.isDark(r, c)) {
+                ctx.fillRect(ox + c * modSize, oy + r * modSize, modSize, modSize);
+              }
+            }
+          }
+        } catch (err) {
+          console.warn("Poster QR error for", el.symbol, err);
+        }
+      }
+    });
+
+    // Chân trang gọn nhẹ
+    ctx.fillStyle = "#64748b";
+    ctx.font = "600 22px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(
+      "Nguyên Tố Vũ Trụ — Bảng Tuần Hoàn Hóa Học 118 Nguyên Tố IUPAC • Quét bằng Camera điện thoại để mở thông tin chi tiết & Mô hình 3D",
+      W / 2,
+      H - 28
+    );
+
+    const dataUrl = canvas.toDataURL("image/png");
+    qrPosterCache = { mode, dataUrl };
+    return dataUrl;
+  }
+
+  function download118QRPosterPNG() {
+    const dataUrl = generate118QRPosterDataURL();
+    const link = document.createElement("a");
+    link.download = "Bang_Tuan_Hoan_118_Nguyen_To_QR_In_1_Trang.png";
+    link.href = dataUrl;
+    link.click();
+  }
+
+  function openQRPosterModal() {
+    const modal = document.getElementById("qrPosterModal");
+    const loading = document.getElementById("qrPosterLoading");
+    const previewImg = document.getElementById("qrPosterPreviewImg");
+    if (!modal || !previewImg) return;
+
+    modal.hidden = false;
+    if (loading) loading.hidden = false;
+    previewImg.hidden = true;
+
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const dataUrl = generate118QRPosterDataURL();
+        previewImg.src = dataUrl;
+        previewImg.hidden = false;
+        if (loading) loading.hidden = true;
+      }, 30);
+    });
+  }
+
+  function closeQRPosterModal() {
+    const modal = document.getElementById("qrPosterModal");
+    if (modal) modal.hidden = true;
+  }
+
+  function print118QRPosterOnePage() {
+    const printImg = document.getElementById("qrPosterPrintImg");
+    if (!printImg) return;
+
+    const dataUrl = generate118QRPosterDataURL();
+    const triggerPrint = () => {
+      document.body.classList.add("printing-qr-poster");
+      setTimeout(() => {
+        window.print();
+      }, 80);
+    };
+
+    if (printImg.src !== dataUrl) {
+      printImg.onload = triggerPrint;
+      printImg.src = dataUrl;
+    } else {
+      triggerPrint();
+    }
+  }
+
+  window.addEventListener("afterprint", () => {
+    document.body.classList.remove("printing-qr-poster");
+  });
+
   // Tạo ảnh SVG trực quan chất lượng cao cho các nguyên tố siêu nặng / tổng hợp
   function createElementVisualDataURI(el) {
     const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
@@ -2050,6 +2419,15 @@
       window.print();
     });
 
+    document.getElementById("openQRPosterBtn")?.addEventListener("click", openQRPosterModal);
+    document.getElementById("downloadQRPosterBtn")?.addEventListener("click", download118QRPosterPNG);
+    document.getElementById("closeQRPosterModalBtn")?.addEventListener("click", closeQRPosterModal);
+    document.getElementById("posterPrint1PageBtn")?.addEventListener("click", print118QRPosterOnePage);
+    document.getElementById("posterDownloadPngBtn")?.addEventListener("click", download118QRPosterPNG);
+    document.getElementById("qrPosterModal")?.addEventListener("click", (e) => {
+      if (e.target.id === "qrPosterModal") closeQRPosterModal();
+    });
+
     // Tìm kiếm tức thì
     const searchInput = document.getElementById("searchInput");
     const clearSearchBtn = document.getElementById("clearSearchBtn");
@@ -2157,7 +2535,10 @@
 
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
-        if (state.modalNumber != null) {
+        const posterModal = document.getElementById("qrPosterModal");
+        if (posterModal && !posterModal.hidden) {
+          closeQRPosterModal();
+        } else if (state.modalNumber != null) {
           closeElementModal();
         } else if (state.searchQuery !== "") {
           searchInput.value = "";

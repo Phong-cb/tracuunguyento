@@ -345,9 +345,17 @@
               <option value="wiki">Trang Wikipedia của nguyên tố</option>
             </select>
           </div>
-          <button type="button" class="tool-btn highlight-btn" id="printQRSheetBtn" title="In toàn bộ bảng mã QR phục vụ học tập &amp; giảng dạy">
+          <button type="button" class="tool-btn highlight-btn" id="openQRPosterBtn" title="Xem trước và in Bảng Tuần Hoàn 118 nguyên tố mã QR trên 1 trang duy nhất">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <span>Bảng Tuần Hoàn QR (1 Trang)</span>
+          </button>
+          <button type="button" class="tool-btn" id="downloadQRPosterBtn" title="Xuất ảnh Bảng Tuần Hoàn 118 nguyên tố QR chất lượng cao (4961×3508 PNG) để in ấn 1 trang">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Tải Ảnh In 1 Trang (.PNG)</span>
+          </button>
+          <button type="button" class="tool-btn" id="printQRSheetBtn" title="In danh sách các thẻ mã QR">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            <span>In Bảng Mã QR</span>
+            <span>In Thẻ Rời</span>
           </button>
         </div>
       </div>
@@ -493,6 +501,42 @@
         <!-- Dynamically populated by app.js -->
       </div>
     </div>
+  </div>
+
+  <!-- 1-Page Printable 118-Element QR Periodic Table Poster Modal -->
+  <div class="modal-backdrop" id="qrPosterModal" role="dialog" aria-modal="true" aria-labelledby="qrPosterModalTitle" hidden>
+    <div class="modal-dialog glass-panel qr-poster-dialog">
+      <button type="button" class="modal-close-btn" id="closeQRPosterModalBtn" aria-label="Đóng cửa sổ bảng in QR">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+
+      <div class="qr-poster-modal-header">
+        <div>
+          <h2 id="qrPosterModalTitle">Bảng Tuần Hoàn Hóa Học 118 Nguyên Tố — Phiên Bản Mã QR (In 1 Trang)</h2>
+          <p>Mỗi ô tối giản chỉ gồm <strong>Kí hiệu nguyên tố</strong>, <strong>Khối lượng nguyên tử</strong> và <strong>Mã QR kích thước lớn</strong> (ảnh xuất 300 DPI: 4961 × 3508 px, tỉ lệ chuẩn A3/A4 ngang).</p>
+        </div>
+        <div class="qr-poster-modal-actions">
+          <button type="button" class="tool-btn highlight-btn" id="posterPrint1PageBtn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <span>In Ngay (1 Trang Duy Nhất)</span>
+          </button>
+          <button type="button" class="tool-btn" id="posterDownloadPngBtn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Tải Ảnh Chất Lượng Cao (.PNG)</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="qr-poster-preview-wrap" id="qrPosterPreviewWrap">
+        <div class="qr-poster-loading" id="qrPosterLoading">Đang kết xuất ảnh chất lượng cao 300 DPI (4961 × 3508 px)...</div>
+        <img id="qrPosterPreviewImg" alt="Bảng tuần hoàn hóa học 118 nguyên tố mã QR in 1 trang" hidden />
+      </div>
+    </div>
+  </div>
+
+  <!-- Dedicated 1-Page Print Container -->
+  <div id="qrPosterPrintOnly" aria-hidden="true">
+    <img id="qrPosterPrintImg" alt="" />
   </div>
 
   <!-- Footer -->
