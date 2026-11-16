@@ -4,34 +4,59 @@
 
   const ALL_ELEMENTS = window.ELEMENTS_DATA || [];
 
-  // Bảng màu neon đặc trưng theo nhóm nguyên tố
+  // Bảng màu 4 nhóm chuẩn theo thiết kế (Kim loại, Phi kim, Kim loại chuyển tiếp, Khí hiếm)
+  const GROUP4_COLORS = {
+    "metal": "#3b9ef5",            // Kim loại - Xanh dương đậm nét
+    "nonmetal": "#5cd645",         // Phi kim - Xanh lá tươi đậm
+    "transition-metal": "#f58a14", // Kim loại chuyển tiếp - Cam vàng đậm
+    "noble-gas": "#b366f5"         // Khí hiếm - Tím hoa cà đậm
+  };
+
   const CATEGORY_COLORS = {
-    "alkali-metal": "#ff5c7c",
-    "alkaline-earth": "#ff9e44",
-    "transition-metal": "#38bdf8",
-    "post-transition": "#34d399",
-    "metalloid": "#2dd4bf",
-    "nonmetal": "#a3e635",
-    "halogen": "#facc15",
-    "noble-gas": "#c084fc",
-    "lanthanide": "#f472b6",
-    "actinide": "#fb7185",
-    "superheavy": "#94a3b8"
+    "alkali-metal": GROUP4_COLORS["metal"],
+    "alkaline-earth": GROUP4_COLORS["metal"],
+    "post-transition": GROUP4_COLORS["metal"],
+    "transition-metal": GROUP4_COLORS["transition-metal"],
+    "lanthanide": GROUP4_COLORS["transition-metal"],
+    "actinide": GROUP4_COLORS["transition-metal"],
+    "metalloid": GROUP4_COLORS["nonmetal"],
+    "nonmetal": GROUP4_COLORS["nonmetal"],
+    "halogen": GROUP4_COLORS["nonmetal"],
+    "noble-gas": GROUP4_COLORS["noble-gas"],
+    "superheavy": GROUP4_COLORS["metal"]
   };
 
   const CATEGORY_LIST = [
-    { id: "all", label: "Tất cả nhóm", color: "#38bdf8" },
-    { id: "alkali-metal", label: "Kim loại kiềm", color: CATEGORY_COLORS["alkali-metal"] },
-    { id: "alkaline-earth", label: "Kim loại kiềm thổ", color: CATEGORY_COLORS["alkaline-earth"] },
-    { id: "transition-metal", label: "Kim loại chuyển tiếp", color: CATEGORY_COLORS["transition-metal"] },
-    { id: "post-transition", label: "Kim loại hậu chuyển tiếp", color: CATEGORY_COLORS["post-transition"] },
-    { id: "metalloid", label: "Á kim", color: CATEGORY_COLORS["metalloid"] },
-    { id: "nonmetal", label: "Phi kim", color: CATEGORY_COLORS["nonmetal"] },
-    { id: "halogen", label: "Halogen", color: CATEGORY_COLORS["halogen"] },
-    { id: "noble-gas", label: "Khí hiếm", color: CATEGORY_COLORS["noble-gas"] },
-    { id: "lanthanide", label: "Họ Lantan (Đất hiếm)", color: CATEGORY_COLORS["lanthanide"] },
-    { id: "actinide", label: "Họ Actini (Phóng xạ)", color: CATEGORY_COLORS["actinide"] }
+    { id: "all", label: "Tất cả", color: "#38bdf8" },
+    { id: "metal", label: "Kim loại", color: GROUP4_COLORS["metal"] },
+    { id: "nonmetal", label: "Phi kim", color: GROUP4_COLORS["nonmetal"] },
+    { id: "transition-metal", label: "Kim loại chuyển tiếp", color: GROUP4_COLORS["transition-metal"] },
+    { id: "noble-gas", label: "Khí hiếm", color: GROUP4_COLORS["noble-gas"] }
   ];
+
+  function getElementGroup4(el) {
+    if (!el) return "metal";
+    const num = el.number;
+    const cat = el.category_id;
+    if (cat === "noble-gas" || num === 118) return "noble-gas";
+    if (
+      cat === "transition-metal" ||
+      cat === "lanthanide" ||
+      cat === "actinide" ||
+      (el.group >= 3 && el.group <= 12 && el.period >= 4)
+    ) {
+      return "transition-metal";
+    }
+    if (cat === "nonmetal" || cat === "metalloid" || cat === "halogen" || num === 117) {
+      return "nonmetal";
+    }
+    return "metal";
+  }
+
+  function getElementColor(el) {
+    if (el && el.number === 1) return "#f1f5f9"; // Hydrogen màu trắng theo bảng mẫu
+    return GROUP4_COLORS[getElementGroup4(el)] || "#60b6f7";
+  }
 
   // Tự động chọn chế độ hiển thị bảng phù hợp với kích thước màn hình lần đầu truy cập
   const isSmallMobileInit = window.innerWidth <= 640;
@@ -154,7 +179,7 @@
     canvas.width = 600;
     canvas.height = 740;
     const ctx = canvas.getContext("2d");
-    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const color = getElementColor(el);
 
     ctx.fillStyle = "#070b17";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -290,35 +315,32 @@
     ctx.font = "700 30px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
     ctx.fillText("Sản phẩm STEM của lớp 10A2 THPT CHU VĂN AN 2026-2027", W / 2, 128);
 
-    // Chú thích màu nhóm căn giữa gọn đẹp phía dưới dòng STEM
+    // Chú thích màu 4 nhóm chuẩn căn giữa phía dưới dòng STEM
     const legendItems = [
-      { label: "Kim loại kiềm", color: CATEGORY_COLORS["alkali-metal"] },
-      { label: "Kiềm thổ", color: CATEGORY_COLORS["alkaline-earth"] },
-      { label: "Chuyển tiếp", color: CATEGORY_COLORS["transition-metal"] },
-      { label: "Hậu C.tiếp", color: CATEGORY_COLORS["post-transition"] },
-      { label: "Á kim", color: CATEGORY_COLORS["metalloid"] },
-      { label: "Phi kim", color: CATEGORY_COLORS["nonmetal"] },
-      { label: "Halogen", color: CATEGORY_COLORS["halogen"] },
-      { label: "Khí hiếm", color: CATEGORY_COLORS["noble-gas"] },
-      { label: "Lantan", color: CATEGORY_COLORS["lanthanide"] },
-      { label: "Actini", color: CATEGORY_COLORS["actinide"] }
+      { label: "Kim loại", color: GROUP4_COLORS["metal"] },
+      { label: "Phi kim", color: GROUP4_COLORS["nonmetal"] },
+      { label: "Khí hiếm", color: GROUP4_COLORS["noble-gas"] },
+      { label: "Kim loại chuyển tiếp", color: GROUP4_COLORS["transition-metal"] }
     ];
-    ctx.font = "600 21px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
+    ctx.font = "700 24px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
     ctx.textAlign = "left";
     let totalLegendW = 0;
     legendItems.forEach((item, idx) => {
-      totalLegendW += 22 + ctx.measureText(item.label).width + (idx < legendItems.length - 1 ? 30 : 0);
+      totalLegendW += 28 + ctx.measureText(item.label).width + (idx < legendItems.length - 1 ? 56 : 0);
     });
     let lx = Math.floor((W - totalLegendW) / 2);
     const ly = 172;
     legendItems.forEach((item) => {
       ctx.fillStyle = item.color;
-      drawRoundedRectPath(ctx, lx, ly - 17, 16, 16, 4);
+      drawRoundedRectPath(ctx, lx, ly - 20, 22, 22, 6);
       ctx.fill();
-      lx += 22;
-      ctx.fillStyle = "#334155";
+      ctx.strokeStyle = "rgba(15, 23, 42, 0.3)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      lx += 30;
+      ctx.fillStyle = "#0f172a";
       ctx.fillText(item.label, lx, ly);
-      lx += ctx.measureText(item.label).width + 30;
+      lx += ctx.measureText(item.label).width + 56;
     });
 
     // Đường kẻ mảnh phân cách header
@@ -386,8 +408,8 @@
       { ypos: 5, label: "5", sub: "Chu kì" },
       { ypos: 6, label: "6", sub: "Chu kì" },
       { ypos: 7, label: "7", sub: "Chu kì" },
-      { ypos: 9, label: "La–Lu", sub: "CK 6", color: CATEGORY_COLORS["lanthanide"] },
-      { ypos: 10, label: "Ac–Lr", sub: "CK 7", color: CATEGORY_COLORS["actinide"] }
+      { ypos: 9, label: "La–Lu", sub: "CK 6", color: GROUP4_COLORS["transition-metal"] },
+      { ypos: 10, label: "Ac–Lr", sub: "CK 7", color: GROUP4_COLORS["transition-metal"] }
     ];
     periodRows.forEach((pr) => {
       const py = getRowY(pr.ypos);
@@ -414,14 +436,14 @@
 
     // Ô đánh dấu vị trí Lantan & Actini tại cột 3 hàng 6, 7
     [
-      { row: 6, label: "57–71", sub: "Lantan", color: CATEGORY_COLORS["lanthanide"] },
-      { row: 7, label: "89–103", sub: "Actini", color: CATEGORY_COLORS["actinide"] }
+      { row: 6, label: "57–71", sub: "Lantan", color: GROUP4_COLORS["transition-metal"] },
+      { row: 7, label: "89–103", sub: "Actini", color: GROUP4_COLORS["transition-metal"] }
     ].forEach((slot) => {
       const sx = elementsStartX + 2 * (cellW + gapX);
       const sy = getRowY(slot.row);
       ctx.save();
       drawRoundedRectPath(ctx, sx, sy, cellW, cellH, 14);
-      ctx.fillStyle = "#f8fafc";
+      ctx.fillStyle = "#fff7ed";
       ctx.fill();
       ctx.setLineDash([8, 6]);
       ctx.strokeStyle = slot.color;
@@ -429,7 +451,7 @@
       ctx.stroke();
       ctx.restore();
 
-      ctx.fillStyle = slot.color;
+      ctx.fillStyle = "#c2410c";
       ctx.textAlign = "center";
       ctx.font = "800 32px 'JetBrains Mono', monospace";
       ctx.fillText(slot.label, sx + cellW / 2, sy + cellH / 2 - 8);
@@ -437,61 +459,54 @@
       ctx.fillText(`↓ ${slot.sub}`, sx + cellW / 2, sy + cellH / 2 + 34);
     });
 
-    // Vẽ đầy đủ 118 nguyên tố (Kí hiệu + Khối lượng nguyên tử + Mã QR lớn)
+    // Bảng màu nền đậm nét theo 4 nhóm chuẩn trong ảnh mẫu
+    const POSTER_TILE_BG = {
+      "metal": "#6ec0fa",
+      "nonmetal": "#8ce673",
+      "transition-metal": "#ffa834",
+      "noble-gas": "#cc94fa"
+    };
+
+    // Vẽ đầy đủ 118 nguyên tố:
+    // - Góc trên phải: Mã QR nền trắng sắc nét
+    // - Không gian bên trái: Số hiệu nguyên tử + Kí hiệu nguyên tố
+    // - Ở cuối căn giữa: Khối lượng nguyên tử
     const elements118 = ALL_ELEMENTS.filter((el) => el.number <= 118);
     ctx.imageSmoothingEnabled = false;
 
     elements118.forEach((el) => {
       const x = elementsStartX + (el.xpos - 1) * (cellW + gapX);
       const y = getRowY(el.ypos);
-      const color = CATEGORY_COLORS[el.category_id] || "#0284c7";
+      const grp4 = getElementGroup4(el);
+      const borderColor = el.number === 1 ? "#94a3b8" : GROUP4_COLORS[grp4];
+      const bgFill = el.number === 1 ? "#ffffff" : (POSTER_TILE_BG[grp4] || "#ffffff");
 
-      // Khung ô nguyên tố
+      // Nền ô theo màu 4 nhóm chuẩn
       ctx.save();
       drawRoundedRectPath(ctx, x, y, cellW, cellH, 14);
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = bgFill;
       ctx.fill();
-      ctx.clip();
-
-      // Dải màu nhấn mảnh ở đỉnh ô theo nhóm nguyên tố
-      ctx.fillStyle = color;
-      ctx.fillRect(x, y, cellW, 9);
       ctx.restore();
 
       // Viền ô sắc nét
       drawRoundedRectPath(ctx, x, y, cellW, cellH, 14);
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 2.6;
+      ctx.strokeStyle = borderColor;
+      ctx.lineWidth = 2.8;
       ctx.stroke();
 
-      // Hàng trên gọn (chiếm ~19% chiều cao): Kí hiệu (trái) & Khối lượng nguyên tử (phải)
-      const headerBaseY = y + 52;
-      ctx.fillStyle = "#0f172a";
-      ctx.textAlign = "left";
-      ctx.textBaseline = "alphabetic";
-      ctx.font = "800 40px 'Space Grotesk', 'Segoe UI', Arial, sans-serif";
-      ctx.fillText(el.symbol, x + 13, headerBaseY, 92);
+      // 1. Góc trên bên phải: Khung Mã QR nền trắng tinh khiết
+      const qrBoxSize = 156;
+      const qrBoxX = x + cellW - qrBoxSize - 10;
+      const qrBoxY = y + 12;
 
-      const massStr =
-        typeof el.atomic_mass === "number"
-          ? Number.isInteger(el.atomic_mass)
-            ? String(el.atomic_mass)
-            : Number(el.atomic_mass.toPrecision(6)).toString()
-          : String(el.atomic_mass);
-      ctx.fillStyle = "#334155";
-      ctx.textAlign = "right";
-      ctx.font = massStr.length > 6
-        ? "700 19px 'JetBrains Mono', Consolas, monospace"
-        : "700 22px 'JetBrains Mono', Consolas, monospace";
-      ctx.fillText(massStr, x + cellW - 12, headerBaseY - 4, cellW - 108);
-
-      // Không gian Mã QR lớn (~77% chiều cao ô, canh giữa phía dưới)
-      const qrBoxSize = Math.min(cellW - 16, cellH - 72); // ~234 × 234 px
-      const qrBoxX = x + Math.floor((cellW - qrBoxSize) / 2);
-      const qrBoxY = y + 64 + Math.floor((cellH - 64 - 10 - qrBoxSize) / 2);
-
+      ctx.save();
+      drawRoundedRectPath(ctx, qrBoxX, qrBoxY, qrBoxSize, qrBoxSize, 10);
       ctx.fillStyle = "#ffffff";
-      ctx.fillRect(qrBoxX, qrBoxY, qrBoxSize, qrBoxSize);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(15, 23, 42, 0.16)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
 
       const payload = buildQRPayload(el, mode);
       if (typeof window.qrcode === "function") {
@@ -500,7 +515,7 @@
           qr.addData(unescape(encodeURIComponent(payload)), "Byte");
           qr.make();
           const count = qr.getModuleCount();
-          const quietZone = 8;
+          const quietZone = 6;
           const drawArea = qrBoxSize - quietZone * 2;
           const modSize = Math.floor(drawArea / count);
           const actualQrPx = modSize * count;
@@ -519,6 +534,32 @@
           console.warn("Poster QR error for", el.symbol, err);
         }
       }
+
+      // 2. Không gian trống bên trái: Số hiệu nguyên tử (trên) & Kí hiệu nguyên tố (giữa-trái)
+      const leftPad = x + 13;
+      const leftAvailW = qrBoxX - leftPad - 6;
+
+      ctx.fillStyle = "#0f172a";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "alphabetic";
+      ctx.font = "800 26px 'JetBrains Mono', Consolas, monospace";
+      ctx.fillText(String(el.number), leftPad, y + 40, leftAvailW);
+
+      ctx.fillStyle = "#020617";
+      ctx.font = "800 50px 'Space Grotesk', 'Segoe UI', Arial, sans-serif";
+      ctx.fillText(el.symbol, leftPad, y + 128, leftAvailW);
+
+      // 3. Ở cuối và căn giữa: Khối lượng nguyên tử
+      const massStr =
+        typeof el.atomic_mass === "number"
+          ? Number.isInteger(el.atomic_mass)
+            ? String(el.atomic_mass)
+            : Number(el.atomic_mass.toPrecision(6)).toString()
+          : String(el.atomic_mass);
+      ctx.fillStyle = "#0f172a";
+      ctx.textAlign = "center";
+      ctx.font = "800 28px 'JetBrains Mono', Consolas, monospace";
+      ctx.fillText(massStr, x + cellW / 2, y + cellH - 28, cellW - 20);
     });
 
     // Chân trang gọn nhẹ
@@ -595,7 +636,7 @@
 
   // Tạo ảnh SVG trực quan chất lượng cao cho các nguyên tố siêu nặng / tổng hợp
   function createElementVisualDataURI(el) {
-    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const color = getElementColor(el);
     const cpk = el.cpk_hex ? `#${el.cpk_hex}` : color;
     const shells = (el.shells || [2, 8, 18]).join(" • ");
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
@@ -671,7 +712,7 @@
   function matchesFilters(el) {
     if (el.number > state.maxElements) return false;
 
-    if (state.selectedCategory !== "all" && el.category_id !== state.selectedCategory) {
+    if (state.selectedCategory !== "all" && getElementGroup4(el) !== state.selectedCategory) {
       return false;
     }
 
@@ -720,7 +761,7 @@
   // Vẽ SVG mô hình nguyên tử Bohr động theo số electron thực tế trên từng lớp vỏ
   function renderBohrSVG(el, size = 160) {
     const shells = el.shells || [1];
-    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const color = getElementColor(el);
     const center = size / 2;
     const maxRadius = size / 2 - 12;
     const minRadius = 18;
@@ -806,7 +847,7 @@
     const spot = document.getElementById("tableSpotlight");
     if (!spot || !el) return;
 
-    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const color = getElementColor(el);
     const imgSrc = getElementImageSrc(el);
     const fallbackUri = createElementVisualDataURI(el);
     const effPhase = getEffectivePhase(el);
@@ -1026,7 +1067,7 @@
       if (isMatched) matchedCount++;
 
       const tile = document.createElement("article");
-      const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+      const color = getElementColor(el);
       const effPhase = getEffectivePhase(el);
       const imgSrc = getElementImageSrc(el);
       const fallbackUri = createElementVisualDataURI(el);
@@ -1087,7 +1128,7 @@
       } else {
         compactGrid.innerHTML = filteredList
           .map((el) => {
-            const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+            const color = getElementColor(el);
             return `
               <article class="compact-el-card" data-compact-num="${el.number}" style="--el-color: ${color}">
                 <div class="compact-el-sym">
@@ -1159,7 +1200,7 @@
 
     grid.innerHTML = list
       .map((el) => {
-        const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+        const color = getElementColor(el);
         const imgSrc = getElementImageSrc(el);
         const fallbackUri = createElementVisualDataURI(el);
         const effPhase = getEffectivePhase(el);
@@ -1235,7 +1276,7 @@
 
     container.innerHTML = chosen
       .map((el) => {
-        const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+        const color = getElementColor(el);
         const imgSrc = getElementImageSrc(el);
         const fallbackUri = createElementVisualDataURI(el);
         const qrSvg = getElementQRCodeSVG(el);
@@ -1292,7 +1333,7 @@
 
     grid.innerHTML = list
       .map((el) => {
-        const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+        const color = getElementColor(el);
         const qrSvg = getElementQRCodeSVG(el, state.qrPayloadMode);
 
         return `
@@ -1494,7 +1535,7 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
 
-      const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+      const color = getElementColor(el);
       const elecRgb = hexToRgb(color);
 
       // Quầng sáng hạt nhân
@@ -1676,7 +1717,7 @@
   // Cập nhật sân khấu 3D (GLB hoặc nguyên tử tương tác)
   function updateModel3DStage() {
     const el = getModel3DElement();
-    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const color = getElementColor(el);
     const section = document.getElementById("viewModel3DSection");
     section?.style.setProperty("--m3d-color", color);
 
@@ -1739,7 +1780,7 @@
     const Z = el.number;
     const A = Math.max(Z, Math.round(Number(el.atomic_mass) || Z * 2));
     const N = Math.max(0, A - Z);
-    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const color = getElementColor(el);
     const qrSvg = getElementQRCodeSVG(el);
 
     panel.innerHTML = `
@@ -1803,7 +1844,7 @@
     document.getElementById("m3dPickerCount").textContent = `${list.length} nguyên tố`;
     picker.innerHTML = list
       .map((el) => {
-        const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+        const color = getElementColor(el);
         const active = el.number === state.model3dNumber ? "active" : "";
         return `<button type="button" class="m3d-pick ${active}" data-m3d-num="${el.number}" style="--el-color:${color}" title="${el.name_en} (${el.symbol})">
           <small>${el.number}</small><strong>${el.symbol}</strong><span>${el.name_en}</span>
@@ -1994,7 +2035,7 @@
     const dialog = modal?.querySelector(".modal-dialog");
     const body = document.getElementById("modalBodyContent");
     const catBadge = document.getElementById("modalCategoryBadge");
-    const color = CATEGORY_COLORS[el.category_id] || "#38bdf8";
+    const color = getElementColor(el);
     const wasHidden = modal ? modal.hidden || modal.classList.contains("modal-closing") : true;
 
     state.modalNumber = number;
