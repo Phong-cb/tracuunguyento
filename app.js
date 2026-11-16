@@ -39,6 +39,8 @@
     const num = el.number;
     const cat = el.category_id;
     if (cat === "noble-gas" || num === 118) return "noble-gas";
+    // Ge (32), Sb (51), Ts (117) được xếp vào nhóm Kim loại theo yêu cầu
+    if (num === 32 || num === 51 || num === 117) return "metal";
     if (
       cat === "transition-metal" ||
       cat === "lanthanide" ||
@@ -47,7 +49,7 @@
     ) {
       return "transition-metal";
     }
-    if (cat === "nonmetal" || cat === "metalloid" || cat === "halogen" || num === 117) {
+    if (cat === "nonmetal" || cat === "metalloid" || cat === "halogen") {
       return "nonmetal";
     }
     return "metal";
@@ -313,7 +315,7 @@
 
     ctx.fillStyle = "#0284c7";
     ctx.font = "700 30px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
-    ctx.fillText("Sản phẩm STEM của lớp 10A2 THPT CHU VĂN AN 2026-2027", W / 2, 128);
+    ctx.fillText("sản phẩm STEM của lớp 10A2 TRƯỜNG THPT CHU VĂN AN năm học 2026_2027", W / 2, 128);
 
     // Chú thích màu 4 nhóm chuẩn căn giữa phía dưới dòng STEM
     const legendItems = [
@@ -375,7 +377,7 @@
     ctx.font = "800 20px 'JetBrains Mono', monospace";
     ctx.fillText("CK \\ Nhóm", gridLeftX + periodColW / 2, topHeaderH + groupRowH / 2 + 7);
 
-    // 3. Hàng Nhóm (1..18 kèm ký hiệu La Mã IA..VIIIA)
+    // 3. Hàng Nhóm (chỉ hiển thị ký hiệu La Mã IA..VIIIA, không đánh số thứ tự cột)
     for (let g = 1; g <= 18; g++) {
       const gx = elementsStartX + (g - 1) * (cellW + gapX);
       const gy = topHeaderH;
@@ -389,14 +391,10 @@
       ctx.stroke();
       ctx.restore();
 
-      ctx.fillStyle = "#0f172a";
-      ctx.textAlign = "center";
-      ctx.font = "800 28px 'JetBrains Mono', monospace";
-      ctx.fillText(String(g), gx + cellW / 2, gy + 36);
-
       ctx.fillStyle = "#0284c7";
-      ctx.font = "700 22px 'Be Vietnam Pro', Arial, sans-serif";
-      ctx.fillText(ROMAN_GROUPS[g - 1], gx + cellW / 2, gy + 66);
+      ctx.textAlign = "center";
+      ctx.font = "800 32px 'Be Vietnam Pro', Arial, sans-serif";
+      ctx.fillText(ROMAN_GROUPS[g - 1], gx + cellW / 2, gy + groupRowH / 2 + 11);
     }
 
     // 4. Cột Chu kì (1..7 + La–Lu, Ac–Lr)
