@@ -1144,11 +1144,11 @@ body.hide-tile-photos .el-tile-bg-img {
 }
 
 .group-header-cell strong {
-  font-family: var(--font-mono);
-  font-size: clamp(0.68rem, 0.78vw, 0.85rem);
+  font-family: var(--font-sans);
+  font-size: clamp(0.72rem, 0.85vw, 0.95rem);
   font-weight: 700;
   line-height: 1;
-  color: #fff;
+  color: #38bdf8;
 }
 
 .group-header-cell small {

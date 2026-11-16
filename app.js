@@ -315,7 +315,7 @@
 
     ctx.fillStyle = "#0284c7";
     ctx.font = "700 30px 'Be Vietnam Pro', 'Segoe UI', Arial, sans-serif";
-    ctx.fillText("sản phẩm STEM của lớp 10A2 TRƯỜNG THPT CHU VĂN AN năm học 2026_2027", W / 2, 128);
+    ctx.fillText("Sản phẩm STEM của lớp 10A2 TRƯỜNG THPT CHU VĂN AN (Năm học 2026_2027)", W / 2, 128);
 
     // Chú thích màu 4 nhóm chuẩn căn giữa phía dưới dòng STEM
     const legendItems = [
@@ -956,8 +956,8 @@
       gBtn.style.gridColumn = String(g + 1);
       gBtn.style.gridRow = "1";
       gBtn.setAttribute("data-group", String(g));
-      gBtn.title = `Nhấn để lọc các nguyên tố thuộc Nhóm ${g} (${ROMAN_GROUPS[g - 1]})`;
-      gBtn.innerHTML = `<strong>${g}</strong><small>${ROMAN_GROUPS[g - 1]}</small>`;
+      gBtn.title = `Nhấn để lọc các nguyên tố thuộc Nhóm ${ROMAN_GROUPS[g - 1]}`;
+      gBtn.innerHTML = `<strong>${ROMAN_GROUPS[g - 1]}</strong>`;
 
       gBtn.addEventListener("click", () => {
         state.selectedGroup = state.selectedGroup === String(g) ? "all" : String(g);
